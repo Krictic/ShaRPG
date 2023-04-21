@@ -1,6 +1,8 @@
 ﻿using ShaRPG.Gameplay;
+using ShaRPG.Gameplay.JobClasses;
 using ShaRPG.GUI;
 using System.Collections;
+using System.Threading;
 
 namespace ShaRPG.States
 {
@@ -26,47 +28,25 @@ namespace ShaRPG.States
             jobName = Console.ReadLine().ToLower().Trim();
 
             // instantiate the appropriate job class based on user input
-            Job.BaseJob job;
             if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
             {
-                job = new Job.Warrior();
+                Warrior warrior = new();
+                jobProcessing(name, biography, warrior);
             }
             else if (jobName.ToLower() == "archer" || jobName.ToLower() == "a" || jobName.ToLower() == "2")
             {
-                job = new Job.Archer();
+                Archer archer = new();
+                jobProcessing(name, biography, archer);
             }
             else
             {
-                Gui.Alert("Invalid job name!");
+                Gui.Alert("Invalid job selection!");
                 return;
             }
 
-            // create the character with the given name and biography
-            var character = new Character(name, biography);
-
-            // apply job bonuses to the character
-            job.ApplyBonuses(character);
-
-            character.CalculateStats();
-
-            this.characterList.Add(character);
-
             Gui.Announcement("Character created!");
-
-            foreach (var property in character.GetType().GetProperties())
-            {
-                Console.WriteLine("{0}: {1}", property.Name, property.GetValue(character, null));
-            }
-
-            Console.WriteLine("Export this character? Y/N");
-            string answer = Console.ReadLine().ToLower().Trim();
-
-            if (answer == "y")
-            {
-                Gui.Alert("Not yet implemented!");
-            }
         }
-
+        
         public void CreateStandardCharacter(string jobType)
         {
             string name = "Chadicus";
@@ -74,14 +54,16 @@ namespace ShaRPG.States
             string jobName = jobType;
 
             // instantiate the appropriate job class based on user input
-            Job.BaseJob job;
-            if (jobName.ToLower() == "warrior")
+            // instantiate the appropriate job class based on user input
+            if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
             {
-                job = new Job.Warrior();
+                Warrior warrior = new();
+                jobProcessing(name, biography, warrior);
             }
-            else if (jobName.ToLower() == "archer")
+            else if (jobName.ToLower() == "archer" || jobName.ToLower() == "a" || jobName.ToLower() == "2")
             {
-                job = new Job.Archer();
+                Archer archer = new();
+                jobProcessing(name, biography, archer);
             }
             else
             {
@@ -89,29 +71,20 @@ namespace ShaRPG.States
                 return;
             }
 
+            Gui.Announcement("Character created!");
+        }
+        private void jobProcessing(string name, string biography, BaseJob job)
+        {
             // create the character with the given name and biography
             var character = new Character(name, biography);
-
             // apply job bonuses to the character
             job.ApplyBonuses(character);
-
             character.CalculateStats();
-
             this.characterList.Add(character);
-
-            Gui.Announcement("Character created!");
 
             foreach (var property in character.GetType().GetProperties())
             {
-                Console.WriteLine("{0}: {1}", property.Name, property.GetValue(character, null));
-            }
-
-            Console.WriteLine("Export this character? Y/N");
-            string answer = Console.ReadLine().ToLower().Trim();
-
-            if (answer == "y")
-            {
-                Gui.Alert("Not yet implemented!");
+                Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
             }
         }
 

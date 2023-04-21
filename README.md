@@ -1,11 +1,4 @@
- _______           _______  _______  _______  _______ 
-(  ____ \|\     /|(  ___  )(  ____ )(  ____ )(  ____ \
-| (    \/| )   ( || (   ) || (    )|| (    )|| (    \/
-| (_____ | (___) || (___) || (____)|| (____)|| |      
-(_____  )|  ___  ||  ___  ||     __)|  _____)| | ____ 
-      ) || (   ) || (   ) || (\ (   | (      | | \_  )
-/\____) || )   ( || )   ( || ) \ \__| )      | (___) |
-\_______)|/     \||/     \||/   \__/|/       (_______)
+#ShaRPG
 
 This is a small text-based game which runs on the console, navigation is done through numbers and strings indicate don the menu.
 
@@ -27,6 +20,8 @@ List of features:
 8. Ability to generate random monster (all normal creatures in this game will be procedurally generated).
 9. Ability to create a placehiolder character for faster testing.
 10. Placeholder debug mode (no use as of now).
+11. Dialogue system between player and NPCs (monsters included?)
+12. Add skills and skillchecks for certain situations and interactions.
 
 ( PLANNED FEATURES - Those will probably be implemented though not necessarily in this order )
 (If I manage to do this, the game should be ready for proper release and beta testing)

@@ -10,8 +10,8 @@ namespace ShaRPG
 
         public bool End
         {
-            get { return this.End; }
-            set { this.End = value; }
+            get { return this.end; }
+            set { this.end = value; }
         }
 
         private void InitStates()
@@ -50,7 +50,7 @@ namespace ShaRPG
             {
                 this.states.Peek().Update();
 
-                if (this.states.Peek().RequestEnd())
+                if (this.states.Peek().RequestEnd)
                 {
                     this.states.Pop();
 

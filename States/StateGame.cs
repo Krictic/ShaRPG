@@ -62,16 +62,29 @@ namespace ShaRPG.States
                 case "3":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    this.character.AddStats();
-                    this.character.CalculateStats();
+                    if (this.character.StatPoints == 0)
+                    {
+                        Console.WriteLine("You dont have stat points to spend!");
+                    } else
+                    {
+                        this.character.AddStats();
+                        this.character.CalculateStats();
+                    }
                     Console.ReadKey();
                     Console.Clear();
                     break;
                 case "A":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    this.character.AddStats();
-                    this.character.CalculateStats();
+                    if (this.character.StatPoints == 0)
+                    {
+                        Console.WriteLine("You dont have stat points to spend!");
+                    }
+                    else
+                    {
+                        this.character.AddStats();
+                        this.character.CalculateStats();
+                    }
                     Console.ReadKey();
                     Console.Clear();
                     break;

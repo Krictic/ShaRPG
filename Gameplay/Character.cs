@@ -12,7 +12,7 @@ namespace ShaRPG.Gameplay
         private string biography = "holder";
         private string job = "Peasant";
         private int level = 3;
-        private int statPoints = 3;
+        private int statPoints;
         private int exp = 0;
         private int expMax = 100;
 
@@ -203,7 +203,14 @@ namespace ShaRPG.Gameplay
             this.criticalChance = (accuracy + (this.damage / 2)) * 2;
         }
 
-        public void StatPointsCalculate(int spentPoints)
+        public int statPointsCalculate(int level)
+        {
+            int statPoints = 3 * level;
+
+            return statPoints;
+        }
+
+        public void StatPointsDecrement(int spentPoints)
         {
             this.statPoints -= spentPoints;
         } 
@@ -329,10 +336,14 @@ namespace ShaRPG.Gameplay
                         Gui.Announcement($"Your new intelligence is {this.intelligence}");
                         break;
                 }
-                StatPointsCalculate(1);
+                StatPointsDecrement(1);
             }
-
         }
+
+            public virtual void Attack(int damage, int criticalChance, int criticalDamage, int accuracy)
+            {
+
+            }
 
     }
 }

@@ -10,15 +10,9 @@ namespace ShaRPG.States
     {
         protected Stack<State> states;
         protected bool end = false;
-        public State(Stack<State> states) 
-        {
-            this.states = states;
-        }
+        public State(Stack<State> states) => this.states = states;
 
-        public bool RequestEnd()
-        {
-            return this.end;
-        }
+        public bool RequestEnd => this.end;
 
         virtual public void Update()
         {

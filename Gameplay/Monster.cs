@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml.Linq;
-using System.Reflection.Emit;
-
-namespace ShaRPG.Gameplay
+﻿namespace ShaRPG.Gameplay
 {
     internal class Monster : Character
     {
@@ -32,21 +22,52 @@ namespace ShaRPG.Gameplay
 
             //Placeholder values for irrelevant stats for monsters (should porbably find a better way)
             this.Gold = 0;
-            this.StatPoints = 0;
 
             // Set level to a random value between 1 and 100
             Random random = new Random();
-
-            // Set stats to random values between 1 and 10
-            this.Strength = random.Next(1, Level * 6);
-            this.Vitality = random.Next(1, Level * 6);
-            this.Dexterity = random.Next(1, Level * 6);
-            this.Agility = random.Next(1, Level * 6);
-            this.Intelligence = random.Next(1, Level * 6);
+            poolDistribution(charLvl, random);
 
             // Calculate derived stats based on the randomly generated stats (inherited from Character)
             this.CalculateStats();
+            lootExpCalculate(random);
 
+        }
+
+        private void poolDistribution(int charLvl, Random random)
+        {
+            // Set the StatPoints pool to be equivalent to the player.
+            this.StatPoints = this.statPointsCalculate(charLvl);
+
+            // Randomly distributes the StatPoints pool
+            for (int i = 0; i < StatPoints; i++)
+            {
+                int variableIndex = random.Next(5);
+
+                switch (variableIndex)
+                {
+                    case 0:
+                        this.Strength++;
+                        break;
+                    case 1:
+                        this.Vitality++;
+                        break;
+                    case 2:
+                        this.Dexterity++;
+                        break;
+                    case 3:
+                        this.Agility++;
+                        break;
+                    case 4:
+                        this.Intelligence++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void lootExpCalculate(Random random)
+        {
             // This calculates the average values of stats
             var arr = new int[] { Strength + Vitality + Dexterity + Agility + Intelligence };
             double avg = Queryable.Average(arr.AsQueryable());
@@ -54,7 +75,6 @@ namespace ShaRPG.Gameplay
             // This calculoates the loot and exp gained from defeating the monster
             this.loot = (random.Next(1, 10) * avg) / 4;
             this.expGain = (random.Next(1, 10) * avg) / 4;
-
         }
 
         public override string ToStringDetailed()
@@ -69,7 +89,6 @@ namespace ShaRPG.Gameplay
             + $"Vitality: {this.Vitality}\n"
             + $"Dexterity: {this.Dexterity}\n"
             + $"Agility: {this.Agility}\n"
-            + $"Dexterity: {this.Vitality}\n"
             + $"Inteligence: {this.Intelligence}\n"
             + $"\n========== Derived Stats ==========\n"
             + $"HP: {this.Hp}\n"

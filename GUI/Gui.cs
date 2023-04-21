@@ -46,7 +46,6 @@
             string bar = "[";
             double percent = ((double)min / max);
             int complete = Convert.ToInt32(percent * width);
-            int incomplete = width - complete;
 
 
             for (int i = 0; i < complete; i++)

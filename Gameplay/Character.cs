@@ -8,9 +8,9 @@ namespace ShaRPG.Gameplay
 
         // Private classes
         // Core properties
-        private String name = "Place";
-        private string biography = "holder";
-        private string job = "Peasant";
+        private String name = "";
+        private string biography = "";
+        private string job = "";
         private int level = 3;
         private int statPoints;
         private int exp = 0;
@@ -177,7 +177,7 @@ namespace ShaRPG.Gameplay
             set { gold = value; }
         }
 
-        private void CalculateExp()
+        public void CalculateExp()
         {
             this.expMax = this.level * 100;
         }
@@ -203,7 +203,7 @@ namespace ShaRPG.Gameplay
             this.criticalChance = (accuracy + (this.damage / 2)) * 2;
         }
 
-        public int statPointsCalculate(int level)
+        public static int StatPointsCalculate(int level)
         {
             int statPoints = 3 * level;
 
@@ -215,7 +215,7 @@ namespace ShaRPG.Gameplay
             this.statPoints -= spentPoints;
         } 
 
-        public Character(String name, string biography)
+        public Character(string name = "Chadicus", string biography = "Maximus")
         {
             this.CalculateStats();
             this.name = name;
@@ -277,7 +277,7 @@ namespace ShaRPG.Gameplay
 
         public void ToDict()
         {
-            Dictionary<string, object> characterDict = new Dictionary<string, object>()
+            Dictionary<string, object> characterDict = new()
             {
                 { "name", this.name },
                 { "biography", this.biography },

@@ -27,7 +27,7 @@ namespace ShaRPG
 
 
         // Private Functions
-        private void initVariables()
+        private void InitVariables()
         {
             this.end = false;
         }
@@ -40,7 +40,7 @@ namespace ShaRPG
         //Constructors and Destructors
         public Game() 
         {
-            this.initVariables();
+            this.InitVariables();
             this.InitCharacterList();
             this.InitStates();
         }

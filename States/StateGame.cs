@@ -15,9 +15,9 @@ namespace ShaRPG.States
             this.character = activeCharacter;
         }
 
-        public void GenerateMonster(int lvl)
+        public static void GenerateMonster(int lvl)
         {
-            Monster randomMonster = new Monster("", "");
+            Monster randomMonster = new();
             randomMonster.DistributeVariables(lvl);
             Console.WriteLine(randomMonster.ToStringDetailed());
         }

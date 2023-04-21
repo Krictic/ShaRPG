@@ -6,8 +6,8 @@
         // Loot (Monster-specific variable)
         private double loot;
         private double expGain;
-
-        public Monster(string name, string biography) : base(name, biography)
+       
+        public Monster() : base()
         {
 
         }
@@ -24,41 +24,46 @@
             this.Gold = 0;
 
             // Set level to a random value between 1 and 100
-            Random random = new Random();
-            poolDistribution(charLvl, random);
+            Random random = new();
+            PoolDistribution(charLvl, random);
 
             // Calculate derived stats based on the randomly generated stats (inherited from Character)
             this.CalculateStats();
-            lootExpCalculate(random);
+            LootExpCalculate(random);
 
         }
 
-        private void poolDistribution(int charLvl, Random random)
+        private void PoolDistribution(int charLvl, Random random)
         {
             // Set the StatPoints pool to be equivalent to the player.
-            this.StatPoints = this.statPointsCalculate(charLvl);
+            this.StatPoints = StatPointsCalculate(charLvl);
 
             // Randomly distributes the StatPoints pool
-            for (int i = 0; i < StatPoints; i++)
+            for (int i = 0; i < StatPoints; i += 1)
             {
                 int variableIndex = random.Next(5);
 
                 switch (variableIndex)
                 {
                     case 0:
-                        this.Strength++;
+                        this.Strength += 1;
+                        this.StatPoints -= 1;
                         break;
                     case 1:
-                        this.Vitality++;
+                        this.Vitality += 1;
+                        this.StatPoints -= 1;
                         break;
                     case 2:
-                        this.Dexterity++;
+                        this.Dexterity += 1;
+                        this.StatPoints -= 1;
                         break;
                     case 3:
-                        this.Agility++;
+                        this.Agility += 1;
+                        this.StatPoints -= 1;
                         break;
                     case 4:
-                        this.Intelligence++;
+                        this.Intelligence += 1;
+                        this.StatPoints -= 1;
                         break;
                     default:
                         break;
@@ -66,7 +71,7 @@
             }
         }
 
-        private void lootExpCalculate(Random random)
+        private void LootExpCalculate(Random random)
         {
             // This calculates the average values of stats
             var arr = new int[] { Strength + Vitality + Dexterity + Agility + Intelligence };

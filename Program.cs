@@ -1,12 +1,18 @@
 ﻿using ShaRPG.Gameplay;
 using ShaRPG.GUI;
+
 namespace ShaRPG
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            if (args is null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
+            Game game = new();
             Gui.Title("Welcome");
             game.Run();
         }

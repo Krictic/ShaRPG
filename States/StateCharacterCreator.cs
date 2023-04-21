@@ -10,7 +10,7 @@ namespace ShaRPG.States
         : State
     {
         // Variables
-        ArrayList characterList;
+        readonly ArrayList characterList;
 
         // Private fuctions
         // Todo: Fix unhandled format exception on this function.
@@ -31,12 +31,12 @@ namespace ShaRPG.States
             if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
             {
                 Warrior warrior = new();
-                jobProcessing(name, biography, warrior);
+                JobProcessing(name, biography, warrior);
             }
             else if (jobName.ToLower() == "archer" || jobName.ToLower() == "a" || jobName.ToLower() == "2")
             {
                 Archer archer = new();
-                jobProcessing(name, biography, archer);
+                JobProcessing(name, biography, archer);
             }
             else
             {
@@ -46,7 +46,9 @@ namespace ShaRPG.States
 
             Gui.Announcement("Character created!");
         }
-        
+
+
+        // Todo: Simplify this method.
         public void CreateStandardCharacter(string jobType)
         {
             string name = "Chadicus";
@@ -58,12 +60,12 @@ namespace ShaRPG.States
             if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
             {
                 Warrior warrior = new();
-                jobProcessing(name, biography, warrior);
+                JobProcessing(name, biography, warrior);
             }
             else if (jobName.ToLower() == "archer" || jobName.ToLower() == "a" || jobName.ToLower() == "2")
             {
                 Archer archer = new();
-                jobProcessing(name, biography, archer);
+                JobProcessing(name, biography, archer);
             }
             else
             {
@@ -73,20 +75,59 @@ namespace ShaRPG.States
 
             Gui.Announcement("Character created!");
         }
-        private void jobProcessing(string name, string biography, BaseJob job)
+
+        private void JobProcessing(string? name, string? biography, BaseJob job)
         {
-            // create the character with the given name and biography
-            var character = new Character(name, biography);
+            Character character = CharacterObject(name, biography);
             // apply job bonuses to the character
             job.ApplyBonuses(character);
             character.CalculateStats();
+            character.StatPoints = Character.StatPointsCalculate(character.Level);
             this.characterList.Add(character);
+            character.CalculateExp();
 
             foreach (var property in character.GetType().GetProperties())
             {
                 Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
             }
         }
+
+        // I know, its disgusting, i am disgusted with myself, but I could see no other way of makign this and not be an illegible mess.
+        private static Character CharacterObject(string? name, string? biography)
+        {
+
+            bool nameNull = false;
+            bool biographyNull = false;
+
+            // This is just to abstract the null checking away to make the if statements easier to understand
+            if (name == null)
+            {
+                nameNull = true;
+            }
+            if (biography == null)
+            {
+                biographyNull = true;
+            }
+
+            // This is because Character´s parameters are optional
+            if (!nameNull && biographyNull)
+            {
+                return new Character(name);
+            }
+            else if (nameNull && !biographyNull)
+            {
+                return new Character(biography);
+            }
+            else if (nameNull && biographyNull)
+            {
+                return new Character();
+            }
+            else
+            {
+                return new Character(name, biography);
+            }
+        }
+
 
         public StateCharacterCreator(Stack<State> states, ArrayList character_list)
             : base(states)

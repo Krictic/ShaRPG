@@ -19,42 +19,72 @@ namespace ShaRPG.States
             this.activeCharacter = null;
         }
 
-        public void ProcessInput(int input)
+        public void ProcessInput(string input)
         {
             switch(input)
             {
-                case -1:
+                case "-1":
                     this.end = true;
                     break;
-                case -2:
+                case "E":
+                    this.end = true;
+                    break;
+                case "-2":
                     if (!debugMode)
                     {
+                        Console.Clear();
                         debugMode = true;
                     }
                     else
                     {
+                        Console.Clear();
                         debugMode = false;
                     }
+                    Update();
                     break;
-                case 1:
+                case "D":
+                    Console.Clear();
+                    if (debugMode)
+                    {
+                        debugMode = false;
+                    }
+                    else
+                    {
+                        debugMode = true;
+                    }
+                    Update();
+                    break;
+                case "1":
                     this.StartNewGame();
                     break;
-                case 2:
+                case "N":
+                    this.StartNewGame();
+                    break;
+                case "2":
                     Gui.Alert("Not implemented yet!");
                     break;
-                case 3:
+                case "l":
+                    Gui.Alert("Not implemented yet!");
+                    break;
+                case "3":
                     Console.Clear();
                     this.states.Push(new StateCharacterCreator(this.states, this.characterList));
                     break;
-                case 4:
+                case "C":
+                    Console.Clear();
+                    this.states.Push(new StateCharacterCreator(this.states, this.characterList));
+                    break;
+                case "4":
                     Console.Clear();
                     this.SelectCharacter();
                     break;
-                case 5:
+                case "S":
                     Console.Clear();
-                    this.StartNewGame();
+                    this.SelectCharacter();
                     break;
                 default:
+                    Console.Clear();
+                    Update();
                     break;
             }
         }
@@ -71,23 +101,22 @@ namespace ShaRPG.States
                 Gui.Announcement("Debug Mode Enabled.");
             }
             Gui.MenuTitle("Main Menu");
-            Gui.MenuOption(1, "New game");
-            Gui.MenuOption(2, "Load Game");
-            Gui.MenuOption(3, "Character Creator");
-            Gui.MenuOption(4, "Select Characters");
+            Gui.MenuOption(1, "(N)ew game");
+            Gui.MenuOption(2, "(L)oad Game");
+            Gui.MenuOption(3, "(C)haracter Creator");
+            Gui.MenuOption(4, "(S)elect Characters");
             if (debugMode)
             {
-                Gui.MenuOption(5, "Generate a Random Monster");
-                Gui.MenuOption(-2, "Disable Debug Mode");
+                Gui.MenuOption(-2, "Disable (D)ebug Mode");
 
             }
             else
             {
-                Gui.MenuOption(-2, "Enable Debug Mode");
+                Gui.MenuOption(-2, "Enable (D)ebug Mode");
             }
-            Gui.MenuOption(-1, "Exit");
+            Gui.MenuOption(-1, "(E)xit");
 
-            int input = Gui.GetInputInt("");
+            string input = Convert.ToString(Gui.GetInputInt("")).ToUpper().Trim();
 
             this.ProcessInput(input);
         }
@@ -97,7 +126,7 @@ namespace ShaRPG.States
             // While the activeCharacter has a null value, the game cannot start.
             if(activeCharacter == null) // Error
             {
-                Gui.Alert("You havent selected a character, please select one at Main Menu -> (3).");
+                Gui.Alert("You havent selected a character, please select one at Main Menu -> (3) -> (1) or (2).");
             }
             else if (activeCharacter != null || debugMode == true) // Start game
             {
@@ -114,11 +143,11 @@ namespace ShaRPG.States
                 Console.WriteLine(String.Format("\n{0}:\n{1}", i, characterList[i].ToString()));
             }
 
-            int choice = Gui.GetInputInt("Character Selection");
+            string choice = Gui.GetInputInt("Character Selection");
 
             try
             {
-                this.activeCharacter = (Character?)characterList[choice];
+                this.activeCharacter = (Character?)characterList[Convert.ToInt32(choice)];
             }
             catch (Exception e)
             {

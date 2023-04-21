@@ -72,16 +72,16 @@
 
 
         // Todo: Rewrite the function to handle valid string input as well.
-        public static int GetInputInt(string message)
+        public static string GetInputInt(string message)
         {
-            Nullable<int> input = null;
+            string? input = null;
 
             while (input == null)
             {
                 try
                 {
-                    Gui.GetInput(message);
-                    input = Convert.ToInt32(Console.ReadLine());
+                    GetInput(message);
+                    input = (string?)Console.ReadLine();
                 } 
                 catch (Exception e) // Error
                 {
@@ -89,7 +89,7 @@
                 }
             }
 
-            return input.Value;
+            return input;
         }
     }
 }

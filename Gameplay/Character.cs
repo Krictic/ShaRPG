@@ -1,4 +1,5 @@
 ﻿using ShaRPG.GUI;
+using System.Reflection;
 
 namespace ShaRPG.Gameplay
 {
@@ -7,10 +8,10 @@ namespace ShaRPG.Gameplay
 
         // Private classes
         // Core properties
-        private String name = "";
-        private string biography = "";
+        private String name = "Place";
+        private string biography = "holder";
         private string job = "Peasant";
-        private int level = 1;
+        private int level = 3;
         private int statPoints = 3;
         private int exp = 0;
         private int expMax = 100;
@@ -38,7 +39,6 @@ namespace ShaRPG.Gameplay
         private int gold = 100;
 
         // Public Setters and Getters
-
         public string Name
         {
             get { return name; }
@@ -55,6 +55,12 @@ namespace ShaRPG.Gameplay
         {
             get { return job; }
             set { job = value; }
+        }
+
+        public int StatPoints
+        {
+            get { return statPoints; }
+            set { statPoints = value; }
         }
 
         public int Level
@@ -159,10 +165,16 @@ namespace ShaRPG.Gameplay
             set { exp = value; }
         }
 
-        public int maxExperience
+        public int MaxExperience
         {
             get { return expMax; }
             set { expMax = value; }
+        }
+
+        public int Gold
+        {
+            get { return gold; }
+            set { gold = value; }
         }
 
         private void CalculateExp()
@@ -203,7 +215,6 @@ namespace ShaRPG.Gameplay
             this.biography = biography;
 
         }
-
         public string ToStringBanner()
         {
             string str =
@@ -216,19 +227,19 @@ namespace ShaRPG.Gameplay
 
 
         // Todo: Maybe I can rewrite to to return variables on demand?
-        public override String ToString()
+        public override string ToString()
         {
             string str =
                 $"Name:\t\t{this.name}\n" +
                 $"Job:\t\t{this.job}\n" +
                 $"Level:\t\t{this.level}\n" +
                 $"Stat Points:\t{this.statPoints}\n" +
-                $"Exp:\t\t{this.exp}/{this.expMax} {Gui.ProgressBar(30, 100, 10)}\n";
+                $"Exp:\t\t{this.exp}/{this.expMax} {Gui.ProgressBar(this.exp, this.expMax, 25)}\n";
 
             return str;
         }
 
-        public String ToStringDetailed()
+        public virtual string ToStringDetailed()
         {
             string str =
                 $"Name:{this.name}\n"
@@ -243,7 +254,7 @@ namespace ShaRPG.Gameplay
                 + $"Dexterity: {this.dexterity}\n"
                 + $"Agility: {this.agility}\n"
                 + $"Dexterity: {this.vitality}\n"
-                + $"Inteligence: {this.vitality}\n"
+                + $"Inteligence: {this.intelligence}\n"
                 + $"\n========== Derived Stats ==========\n"
                 + $"HP: {this.hp}\n"
                 + $"MaxHP: {this.hpMax}\n"

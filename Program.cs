@@ -1,4 +1,5 @@
-﻿using ShaRPG.GUI;
+﻿using ShaRPG.Gameplay;
+using ShaRPG.GUI;
 namespace ShaRPG
 {
     internal class Program

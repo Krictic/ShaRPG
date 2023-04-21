@@ -15,43 +15,51 @@ namespace ShaRPG.States
             this.character = activeCharacter;
         }
 
-        public void GenerateMonster()
+        public void GenerateMonster(int lvl)
         {
-            Character character = this.character;
-            Monsters randomMonster = new Monsters();
-            randomMonster.DistributeVariables(character.Level);
-
-            Gui.Alert($"A {randomMonster.Name} has appeared!");
-            foreach (var property in randomMonster.GetType().GetProperties())
-            {
-                Console.WriteLine("{0}: {1}", property.Name, property.GetValue(randomMonster, null));
-            }
+            Monster randomMonster = new Monster("", "");
+            randomMonster.DistributeVariables(lvl);
+            Console.WriteLine(randomMonster.ToStringDetailed());
         }
 
-        public void ProcessInput(int input)
+        public void ProcessInput(string input)
         {
             switch (input)
             {
-                case -1:
+                case "-1":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
                     this.end = true;
                     break;
-                case 1:
+                case "1":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
                     Console.WriteLine(this.character.ToString());
                     Console.ReadKey();
                     Console.Clear();
                     break;
-                case 2:
+                case "C":
+                    Console.Clear();
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.WriteLine(this.character.ToString());
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "2":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
                     Console.WriteLine(this.character.ToStringDetailed());
                     Console.ReadKey();
                     Console.Clear();
                     break;
-                case 3:
+                case "D":
+                    Console.Clear();
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.WriteLine(this.character.ToStringDetailed());
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "3":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
                     this.character.AddStats();
@@ -59,10 +67,25 @@ namespace ShaRPG.States
                     Console.ReadKey();
                     Console.Clear();
                     break;
-                case 4:
+                case "A":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    GenerateMonster();
+                    this.character.AddStats();
+                    this.character.CalculateStats();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "4":
+                    Console.Clear();
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    GenerateMonster(this.character.Level);
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "G":
+                    Console.Clear();
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    GenerateMonster(this.character.Level);
                     Console.ReadKey();
                     Console.Clear();
                     break;
@@ -76,13 +99,13 @@ namespace ShaRPG.States
             Console.Clear();
             Console.SetCursorPosition(0, Console.CursorTop);
             Gui.MenuTitle("GameState");
-            Gui.MenuOption(1, "Character Stats");
-            Gui.MenuOption(2, "Character Stats (detailed)");
-            Gui.MenuOption(3, "Apply Stat Points");
-            Gui.MenuOption(4, "Generate a Random Monster");
-            Gui.MenuOption(-1, "Exit");
+            Gui.MenuOption(1, "(C)haracter Stats");
+            Gui.MenuOption(2, "(D)etailed Character Stats");
+            Gui.MenuOption(3, "(A)pply Stat Points");
+            Gui.MenuOption(4, "(G)enerate a Random Monster");
+            Gui.MenuOption(-1, "(E)xit");
 
-            int input = Gui.GetInputInt("");
+            string input = Gui.GetInputInt("").ToUpper().Trim();
 
             this.ProcessInput(input);
         }

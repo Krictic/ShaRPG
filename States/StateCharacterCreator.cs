@@ -21,17 +21,17 @@ namespace ShaRPG.States
             Gui.GetInput("Name");
             name = Console.ReadLine();
             Gui.GetInput("Write a biography for your character");
-            biography = Console.ReadLine();
-            Gui.GetInput("What is your character´s job? (You can choose either Warrior or Archer)");
-            jobName = Console.ReadLine();
+            biography = Console.ReadLine().ToLower().Trim();
+            Gui.GetInput("What is your character´s job? (You can choose either (1)(W)arrior or (2)(A)rcher)");
+            jobName = Console.ReadLine().ToLower().Trim();
 
             // instantiate the appropriate job class based on user input
             Job.BaseJob job;
-            if (jobName.ToLower() == "warrior")
+            if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
             {
                 job = new Job.Warrior();
             }
-            else if (jobName.ToLower() == "archer")
+            else if (jobName.ToLower() == "archer" || jobName.ToLower() == "a" || jobName.ToLower() == "2")
             {
                 job = new Job.Archer();
             }
@@ -67,7 +67,7 @@ namespace ShaRPG.States
             }
         }
 
-        private void CreateStandardCharacter(string jobType)
+        public void CreateStandardCharacter(string jobType)
         {
             string name = "Chadicus";
             string biography = "Maximus";
@@ -121,23 +121,33 @@ namespace ShaRPG.States
             this.characterList = character_list;
         }
 
-        public void ProcessInput(int input)
+        public void ProcessInput(string input)
         {
             switch (input)
             {
-                case -1:
+                case "-1":
                     Console.Clear();
                     this.end = true;
                     break;
-                case 1:
+                case "E":
+                    Console.Clear();
+                    this.end = true;
+                    break;
+                case "1":
                     Console.Clear();
                     this.CreateCharacter();
                     break;
-                case 2:
+                case "N":
                     Console.Clear();
-                    Gui.GetInput("Type the job you want your character to have (only warrior or archer available for now)");
-                    string jobType = Console.ReadLine();
-                    this.CreateStandardCharacter(jobType);
+                    this.CreateCharacter();
+                    break;
+                case "2":
+                    Console.Clear();
+                    this.CreateStandardCharacter("warrior");
+                    break;
+                case "G":
+                    Console.Clear();
+                    this.CreateStandardCharacter("warrior");
                     break;
                 default:
                     break;
@@ -148,13 +158,13 @@ namespace ShaRPG.States
         {
             Console.SetCursorPosition(0, Console.CursorTop);
             Gui.MenuTitle("Character Creator");
-            Gui.MenuOption(1, "New Character");
-            Gui.MenuOption(2, "Generate Predefined Character");
-            Gui.MenuOption(3, "Edit Character (Not Yet Implemented)");
-            Gui.MenuOption(4, "Delete Character (Not Yet Implemented)");
-            Gui.MenuOption(-1, "Exit");
+            Gui.MenuOption(1, "(N)ew Character");
+            Gui.MenuOption(2, "(G)enerate Predefined Character");
+            Gui.MenuOption(3, "(E)dit Character (Not Yet Implemented)");
+            Gui.MenuOption(4, "(D)elete Character (Not Yet Implemented)");
+            Gui.MenuOption(-1, "(E)xit");
 
-            int input = Gui.GetInputInt("input");
+            string input = Gui.GetInputInt("input").ToUpper().Trim();
 
             this.ProcessInput(input);
         }

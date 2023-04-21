@@ -46,6 +46,6 @@ List of features:
 19. Magic and spells.
 
 (POSSIBLE FEATURES - Those may be done after)
-1. Implement a proper tabletop rpg system, currently considering Paizo´s ORC or the OpenRPG (this has been implemented in C++ but could be plausibly adapted into C#).
+1. Implement a proper tabletop rpg system, currently considering PaizoÂ´s ORC or the OpenRPG (this has been implemented in C++ but could be plausibly adapted into C#).
 (though I must say that i dislike d20 systems, I will look into it.)
 

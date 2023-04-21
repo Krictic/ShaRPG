@@ -1,11 +1,4 @@
- _______           _______  _______  _______  _______ 
-(  ____ \|\     /|(  ___  )(  ____ )(  ____ )(  ____ \
-| (    \/| )   ( || (   ) || (    )|| (    )|| (    \/
-| (_____ | (___) || (___) || (____)|| (____)|| |      
-(_____  )|  ___  ||  ___  ||     __)|  _____)| | ____ 
-      ) || (   ) || (   ) || (\ (   | (      | | \_  )
-/\____) || )   ( || )   ( || ) \ \__| )      | (___) |
-\_______)|/     \||/     \||/   \__/|/       (_______)
+#ShaRPG
 
 This is a small text-based game which runs on the console, navigation is done through numbers and strings indicate don the menu.
 
@@ -51,6 +44,6 @@ List of features:
 19. Magic and spells.
 
 (POSSIBLE FEATURES - Those may be done after)
-1. Implement a proper tabletop rpg system, currently considering Paizo´s ORC or the OpenRPG (this has been implemented in C++ but could be plausibly adapted into C#).
+1. Implement a proper tabletop rpg system, currently considering PaizoÂ´s ORC or the OpenRPG (this has been implemented in C++ but could be plausibly adapted into C#).
 (though I must say that i dislike d20 systems, I will look into it.)
 

@@ -2,7 +2,6 @@
 using ShaRPG.Gameplay.JobClasses;
 using ShaRPG.GUI;
 using System.Collections;
-using System.Threading;
 
 namespace ShaRPG.States
 {

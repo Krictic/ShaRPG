@@ -1,4 +1,5 @@
-﻿using ShaRPG.Gameplay;
+﻿using Newtonsoft.Json;
+using ShaRPG.Gameplay;
 using ShaRPG.Gameplay.JobClasses;
 using ShaRPG.GUI;
 using System.Collections;
@@ -84,11 +85,24 @@ namespace ShaRPG.States
             character.StatPoints = Character.StatPointsCalculate(character.Level);
             this.characterList.Add(character);
             character.CalculateExp();
+            Guid uuid = Guid.NewGuid();
+            charaID(character, uuid);
+        }
+
+        private static void charaID(Character character, Guid uuid)
+        {
+            character.ID = uuid;
+
+            Dictionary<object, object> charDict = new Dictionary<object, object>();
 
             foreach (var property in character.GetType().GetProperties())
             {
                 Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
+                charDict.Add(property.Name, property.GetValue(character));
             }
+
+            string json = JsonConvert.SerializeObject(charDict, Newtonsoft.Json.Formatting.Indented);
+            File.AppendAllText("dict.json", json + Environment.NewLine);
         }
 
         // I know, its disgusting, i am disgusted with myself, but I could see no other way of makign this and not be an illegible mess.
@@ -133,7 +147,6 @@ namespace ShaRPG.States
         {
             this.characterList = character_list;
         }
-
         public void ProcessInput(string input)
         {
             switch (input)

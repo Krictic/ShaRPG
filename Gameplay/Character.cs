@@ -38,7 +38,16 @@ namespace ShaRPG.Gameplay
         // General
         private int gold = 100;
 
+        // Indexing variable
+        private Guid id;
+
         // Public Setters and Getters
+        public Guid ID
+        { 
+            get { return id; }
+            set { id = value; }
+        }
+
         public string Name
         {
             get { return name; }

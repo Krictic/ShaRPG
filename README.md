@@ -1,5 +1,13 @@
 #ShaRPG
 
+About thi branch:
+
+Since I am new at working with git repos, I made the misstake of altering my local master branch with important stuff, this
+meant that the coding I was working with on the GURPs-like branch (which used master as a base) is no longer updated. So i created
+this branch to help me keep things separated. Since I am not sure I wish to keep the changes I made here into master.
+
+I should decide soon if I wish to keep the old sytem or the new gurps-like system soon.
+
 Introduction:
 
 This is a small text-based game which runs on the console, navigation is done through numbers and strings indicate on the menu. (I do plan on changing that).

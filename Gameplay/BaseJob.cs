@@ -19,6 +19,12 @@ internal abstract class BaseJob
     public int AgilityBonus { get => agilityBonus; set => agilityBonus = value; }
     public int IntelligenceBonus { get => intelligenceBonus; set => intelligenceBonus = value; }
 
+    /// <summary>
+    /// This applies the jobs bonuses to the character
+    /// </summary>
+    /// <param name="character">
+    /// Whatever Character type object (which includes both player and NPCs such as monsters) this will apply to
+    /// </param>
     public virtual void ApplyBonuses(Character character)
     {
         character.Job = JobName;

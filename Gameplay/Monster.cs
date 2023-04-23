@@ -16,9 +16,9 @@
         {
             // Set name and biography to random strings
             this.Name = "Random Rat";
-            this.Job = "Monster";
+            this.Job = "Creature";
             this.Biography = "An randomly generate rat for you to fight against!";
-            this.Level = charLvl;
+            this.Level = charLvl; // Unnecessary.
 
             //Placeholder values for irrelevant stats for monsters (should porbably find a better way)
             this.Gold = 0;
@@ -37,38 +37,41 @@
         {
             // Set the StatPoints pool to be equivalent to the player.
             this.StatPoints = StatPointsCalculate(charLvl);
-
+            this.Level = charLvl;
+            // Set a counting variable to guarantee that all statpoints are spent.
+            int count = 0;
             // Randomly distributes the StatPoints pool
-            for (int i = 0; i < StatPoints; i += 1)
+           
+            while (count != this.StatPoints)
             {
                 int variableIndex = random.Next(5);
-
                 switch (variableIndex)
                 {
                     case 0:
                         this.Strength += 1;
-                        this.StatPoints -= 1;
+                        count++;
                         break;
                     case 1:
                         this.Vitality += 1;
-                        this.StatPoints -= 1;
+                        count++;
                         break;
                     case 2:
                         this.Dexterity += 1;
-                        this.StatPoints -= 1;
+                        count++;
                         break;
                     case 3:
                         this.Agility += 1;
-                        this.StatPoints -= 1;
+                        count++;
                         break;
                     case 4:
                         this.Intelligence += 1;
-                        this.StatPoints -= 1;
+                        count++;
                         break;
                     default:
                         break;
                 }
             }
+            this.StatPoints = 0;
         }
 
         private void LootExpCalculate(Random random)

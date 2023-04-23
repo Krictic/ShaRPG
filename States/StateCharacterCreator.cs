@@ -2,6 +2,7 @@
 using ShaRPG.Gameplay;
 using ShaRPG.Gameplay.JobClasses;
 using ShaRPG.GUI;
+using System;
 using System.Collections;
 
 namespace ShaRPG.States
@@ -48,14 +49,17 @@ namespace ShaRPG.States
         }
 
 
-        // Todo: Simplify this method.
-        public void CreateStandardCharacter(string jobType)
+        /// <summary>
+        /// This will create a character with placeholder name and biography, intended for faster character creation
+        /// once i allow for cusstom characters.
+        /// </summary>
+        /// <param name="jobType"></param>
+        public void CreateFastCharacter(string jobType)
         {
             string name = "Chadicus";
             string biography = "Maximus";
             string jobName = jobType;
 
-            // instantiate the appropriate job class based on user input
             // instantiate the appropriate job class based on user input
             if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
             {
@@ -76,23 +80,39 @@ namespace ShaRPG.States
             Gui.Announcement("Character created!");
         }
 
+        /// <summary>
+        /// This is used to create a full character instance. This may be used for both player and NPC characters.
+        /// </summary>
+        /// <param name="name"></param>
+        /// Name of the character instance (may be null)
+        /// <param name="biography"></param>
+        /// Biography (or description) of the Character instance
+        /// <param name="job"></param>
+        /// The job (RPG classes) to be applied to the Character instance.
         private void JobProcessing(string? name, string? biography, BaseJob job)
         {
             Character character = CharacterObject(name, biography);
-            // apply job bonuses to the character
             job.ApplyBonuses(character);
             character.CalculateStats();
             character.StatPoints = Character.StatPointsCalculate(character.Level);
             this.characterList.Add(character);
             character.CalculateExp();
-            Guid uuid = Guid.NewGuid();
-            charaID(character, uuid);
+            charaID(character);
+            printAndStoreCharacter(character);
         }
 
-        private static void charaID(Character character, Guid uuid)
+        /// <summary>
+        /// This generates a unique id for each Character isntance, this will be useful later.
+        /// </summary>
+        /// <param name="character"></param>
+        private static void charaID(Character character)
         {
+            Guid uuid = new();
             character.ID = uuid;
+        }
 
+        private static void printAndStoreCharacter(Character character)
+        {
             Dictionary<object, object> charDict = new Dictionary<object, object>();
 
             foreach (var property in character.GetType().GetProperties())
@@ -105,7 +125,12 @@ namespace ShaRPG.States
             File.AppendAllText("dict.json", json + Environment.NewLine);
         }
 
-        // I know, its disgusting, i am disgusted with myself, but I could see no other way of makign this and not be an illegible mess.
+        /// <summary>
+        /// This is a null-checking method which allows for null values to be passed as parameters for the Character class constructor.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="biography"></param>
+        /// <returns></returns>
         private static Character CharacterObject(string? name, string? biography)
         {
 
@@ -169,14 +194,31 @@ namespace ShaRPG.States
                     break;
                 case "2":
                     Console.Clear();
-                    this.CreateStandardCharacter("warrior");
+                    randomJobChooser();
                     break;
                 case "G":
                     Console.Clear();
-                    this.CreateStandardCharacter("warrior");
+                    randomJobChooser();
                     break;
                 default:
                     break;
+            }
+        }
+
+        /// <summary>
+        /// This randomly chooses a job for the fast character generator.
+        /// </summary>
+        private void randomJobChooser()
+        {
+            Random rnd = new Random();
+            int variableIndex = rnd.Next(1);
+            if (variableIndex == 1)
+            {
+                this.CreateFastCharacter("warrior");
+            }
+            else
+            {
+                this.CreateFastCharacter("archer");
             }
         }
 
@@ -185,7 +227,7 @@ namespace ShaRPG.States
             Console.SetCursorPosition(0, Console.CursorTop);
             Gui.MenuTitle("Character Creator");
             Gui.MenuOption(1, "(N)ew Character");
-            Gui.MenuOption(2, "(G)enerate Predefined Character");
+            Gui.MenuOption(2, "(G)enerate Fast Character");
             Gui.MenuOption(3, "(E)dit Character (Not Yet Implemented)");
             Gui.MenuOption(4, "(D)elete Character (Not Yet Implemented)");
             Gui.MenuOption(-1, "(E)xit");

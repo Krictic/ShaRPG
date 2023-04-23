@@ -191,6 +191,9 @@ namespace ShaRPG.Gameplay
             this.expMax = this.level * 100;
         }
 
+        /// <summary>
+        /// Calculate derived stats for the Character instance.
+        /// </summary>
         public void CalculateStats()
         {
             this.hpMax = this.vitality * 10;

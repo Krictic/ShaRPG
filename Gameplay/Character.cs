@@ -264,16 +264,14 @@ namespace ShaRPG.Gameplay
 
         public Character(string name = "Chadicus", string biography = "Maximus")
         {
-            //CalculateCharStats();
             Name = name;
             Biography = biography;
-
         }
         public string ToStringBanner()
         {
             string str =
                 $"==============================================\n" +
-                $"[ {name} | Lv: {Level} | Job: {Job} {Gui.ProgressBar(Experience, MaxExperience, 25)} ]\n" +
+                $"[ {Name} | Lv: {Level} | Job: {Job} {Gui.ProgressBar(Experience, MaxExperience, 25)} ]\n" +
                 $"==============================================\n";
 
             return str;

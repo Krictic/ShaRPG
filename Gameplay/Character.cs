@@ -269,10 +269,7 @@ namespace ShaRPG.Gameplay
         }
         public string ToStringBanner()
         {
-            string str =
-                $"==============================================\n" +
-                $"[ {Name} | Lv: {Level} | Job: {Job} {Gui.ProgressBar(Experience, MaxExperience, 25)} ]\n" +
-                $"==============================================\n";
+            string str = $"[ {Name} | Lv: {Level} | Job: {Job} {Gui.ProgressBar(Experience, MaxExperience, 25)} ]";
 
             return str;
         }

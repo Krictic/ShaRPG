@@ -1,5 +1,4 @@
 ﻿using ShaRPG.GUI;
-using System.Reflection;
 
 namespace ShaRPG.Gameplay
 {
@@ -8,22 +7,22 @@ namespace ShaRPG.Gameplay
 
         // Private classes
         // Core properties
-        private String name = "";
+        private string name = "";
         private string biography = "";
         private string job = "";
-        private int level = 3;
+        private int level = 4;
         private int statPoints;
-        private int exp = 0;
-        private int expMax = 100;
+        double exp = 0;
+        double expMax = 100;
 
-        // Stats
+        // Base Stats
         private int strength = 1;
         private int vitality = 1;
         private int dexterity = 1;
         private int agility = 1;
         private int intelligence = 1;
 
-        // Derived Stats
+        // Secondary Stats  (derived from Base stats)
         private int hp = 0;
         private int hpMax = 0;
         private int damage = 0;
@@ -32,6 +31,10 @@ namespace ShaRPG.Gameplay
         private int defence = 0;
         private int mana = 0;
         private int manaMax = 0;
+        private int deflection = 0;
+        private int evasion = 0;
+
+        // Tertiary stats (derived from secondary Stats)
         private double criticalChance = 0;
         private double criticalDamage = 0;
 
@@ -46,6 +49,18 @@ namespace ShaRPG.Gameplay
         { 
             get { return id; }
             set { id = value; }
+        }
+
+        public int Deflection
+        {
+            get { return deflection; }
+            set { deflection = value; }
+        }
+
+        public int Evasion
+        {
+            get { return evasion; }
+            set { evasion = value; }
         }
 
         public string Name
@@ -168,13 +183,13 @@ namespace ShaRPG.Gameplay
             set { criticalDamage = value; }
         }
 
-        public int Experience
+        public double Experience
         {
             get { return exp; }
             set { exp = value; }
         }
 
-        public int MaxExperience
+        public double MaxExperience
         {
             get { return expMax; }
             set { expMax = value; }
@@ -186,59 +201,79 @@ namespace ShaRPG.Gameplay
             set { gold = value; }
         }
 
-        public void CalculateExp()
+        // This will calculate the expMax variable to follow a exponential progression (factor of 2)
+        public double CalculateExp(int characterLevel)
         {
-            this.expMax = this.level * 100;
-        }
-
-        /// <summary>
-        /// Calculate derived stats for the Character instance.
-        /// </summary>
-        public void CalculateStats()
-        {
-            this.hpMax = this.vitality * 10;
-            this.damageMax = this.strength * 2 + this.accuracy;
-            this.accuracy = this.dexterity * 2;
-            this.defence = this.agility * 2;
-            this.manaMax = this.intelligence * 5;
-
-            // Crit chance cannot be higher than 100 because it's a percentage
-            if (this.dexterity + this.accuracy < 100)
+            if (characterLevel == 1)
             {
-                this.criticalChance = (this.dexterity + this.accuracy) * 1.05;
-            }
+                return MaxExperience;
+            } 
             else
             {
-                this.criticalChance = 100;
+                int levelMultiplier = 2;
+                return MaxExperience * (Math.Pow(level - 1, 2));
             }
-
-            this.criticalChance = (accuracy + (this.damage / 2)) * 2;
         }
 
-        public static int StatPointsCalculate(int level)
+        public int CalculateBaseDamage(int st)
         {
-            int statPoints = 3 * level;
+            return st * 2;
+        }
+
+        public int CalculateHpMax(int vit)
+        {
+            return vit * 10;
+        }
+
+        public int CalculateAccuracy(int dex)
+        {
+            return dex * 2;
+        }
+
+        public int CalculateDefence(int agi)
+        {
+            return agi * 2;
+        }
+
+        public int CalculateManaMax(int iq)
+        {
+            return iq * 5;
+        }
+
+        public double CalculateCritChance(int dex, int acc)
+        {
+            return (dex + acc) / 3;
+        }
+
+        public double CalculateCritDamage(int dex, int iq, int dmg)
+        {
+            return (dex + iq + dmg) / 3;
+        }
+
+        public static int StatPointsCalculate(int Level)
+        {
+            int statPoints = 5 * Level;
 
             return statPoints;
         }
 
         public void StatPointsDecrement(int spentPoints)
         {
-            this.statPoints -= spentPoints;
+            statPoints -= spentPoints;
         } 
 
         public Character(string name = "Chadicus", string biography = "Maximus")
         {
-            this.CalculateStats();
-            this.name = name;
-            this.biography = biography;
+            //CalculateCharStats();
+            Name = name;
+            Biography = biography;
 
         }
         public string ToStringBanner()
         {
             string str =
                 $"==============================================\n" +
-                $"[ {this.name} | Lv: {this.level} | Job: {this.Job} {Gui.ProgressBar(this.exp, this.expMax, 25)} ]\n" +
+                $"[ {name} | Lv: {Level} | Job: {Job} {Gui.ProgressBar(Experience, MaxExperience, 25)} ]\n" +
                 $"==============================================\n";
 
             return str;
@@ -249,11 +284,11 @@ namespace ShaRPG.Gameplay
         public override string ToString()
         {
             string str =
-                $"Name:\t\t{this.name}\n" +
-                $"Job:\t\t{this.job}\n" +
-                $"Level:\t\t{this.level}\n" +
-                $"Stat Points:\t{this.statPoints}\n" +
-                $"Exp:\t\t{this.exp}/{this.expMax} {Gui.ProgressBar(this.exp, this.expMax, 25)}\n";
+                $"Name:\t\t{Name}\n" +
+                $"Job:\t\t{Job}\n" +
+                $"Level:\t\t{Level}\n" +
+                $"Stat Points:\t{StatPoints}\n" +
+                $"Exp:\t\t{Experience}/{MaxExperience} {Gui.ProgressBar(Experience, MaxExperience, 25)}\n";
 
             return str;
         }
@@ -261,29 +296,31 @@ namespace ShaRPG.Gameplay
         public virtual string ToStringDetailed()
         {
             string str =
-                $"Name:{this.name}\n"
-                + $"Biography:{this.biography}\n"
-                + $"Job:{this.job}\n"
-                + $"Level:{this.level}\n"
-                + $"Stat Points:{this.statPoints}\n"
-                + $"Exp/MaxExp:{this.exp}/{this.expMax}\n"
+                $"Name:{Name}\n"
+                + $"Biography:{Biography}\n"
+                + $"Job:{Job}\n"
+                + $"Level:{Level}\n"
+                + $"Stat Points:{statPoints}\n"
+                + $"Exp/MaxExp:{Experience}/{MaxExperience}\n"
                 + $"\n========== Stats ==========n\n"
-                + $"Strenght: {this.strength}\n"
-                + $"Vitality: {this.vitality}\n"
-                + $"Dexterity: {this.dexterity}\n"
-                + $"Agility: {this.agility}\n"
-                + $"Dexterity: {this.vitality}\n"
-                + $"Inteligence: {this.intelligence}\n"
+                + $"Strenght: {Strength}\n"
+                + $"Vitality: {Vitality}\n"
+                + $"Dexterity: {Dexterity}\n"
+                + $"Agility: {Agility}\n"
+                + $"Dexterity: {Vitality}\n"
+                + $"Inteligence: {Intelligence}\n"
                 + $"\n========== Derived Stats ==========\n"
-                + $"HP: {this.hp}\n"
-                + $"MaxHP: {this.hpMax}\n"
-                + $"Damage: {this.damage}\n"
-                + $"Max Damage: {this.damageMax}\n"
-                + $"Accuracy: {this.accuracy}\n"
-                + $"Defence: {this.defence}\n"
-                + $"Mana/Max Mana: {this.mana}" + $"/ {this.manaMax}\n"
-                + $"Critical Chance: {this.criticalChance}\n"
-                + $"Gold: {this.gold}";
+                + $"HP: {Hp}\n"
+                + $"MaxHP: {hpMax}\n"
+                + $"Damage: {Damage}\n"
+                + $"Max Damage: {DamageMax}\n"
+                + $"Accuracy: {Accuracy}\n"
+                + $"Defence: {Defence}\n"
+                + $"Mana/Max Mana: {Mana}" + $"/ {ManaMax}\n"
+                + $"Critical Chance: {CriticalChance}\n" 
+                + $"Deflection: {Deflection}"
+                + $"Evasion: {Evasion}"
+                + $"Gold: {Gold}";
             return str;
         }
 
@@ -291,28 +328,30 @@ namespace ShaRPG.Gameplay
         {
             Dictionary<string, object> characterDict = new()
             {
-                { "name", this.name },
-                { "biography", this.biography },
-                { "job", this.job },
-                { "level", this.level },
-                { "statPoints", this.statPoints },
-                { "exp", this.exp },
-                { "expMax", this.expMax },
-                { "strength", this.strength },
-                { "vitality", this.vitality },
-                { "dexterity", this.dexterity },
-                { "agility", this.agility },
-                { "inteligence", this.intelligence },
-                { "hp", this.hp },
-                { "hpMax", this.hpMax },
-                { "damage", this.damage },
-                { "damageMax", this.damageMax },
-                { "accuracy", this.accuracy },
-                { "defence", this.defence },
-                { "mana", this.mana },
-                { "maximum mana", this.manaMax},
-                { "criticalChance", this.criticalChance },
-                { "gold", this.gold }
+                { "name", Name },
+                { "biography", Biography },
+                { "Job", Job },
+                { "Level", Level },
+                { "statPoints", statPoints },
+                { "Experience", Experience },
+                { "MaxExperience", MaxExperience },
+                { "Strength", Strength },
+                { "Vitality", Vitality },
+                { "Dexterity", Dexterity },
+                { "Agility", Agility },
+                { "inteligence", Intelligence },
+                { "Hp", Hp },
+                { "hpMax", HpMax },
+                { "Damage", Damage },
+                { "DamageMax", DamageMax },
+                { "Accuracy", Accuracy },
+                { "Defence", Defence },
+                { "Mana", Mana },
+                { "maximum Mana", ManaMax},
+                { "CriticalChance", CriticalChance },
+                { "Deflection", Deflection },
+                { "Evasion", Evasion },
+                { "Gold", Gold }
             };
 
             Console.WriteLine(characterDict);
@@ -321,38 +360,38 @@ namespace ShaRPG.Gameplay
 
         public void AddStats()
         {
-            while (this.statPoints > 0)
+            while (statPoints > 0)
             {
-                Gui.GetInput($"Which stat do you wish to increase? (You have {this.statPoints} left.)");
-                string statSelection = Console.ReadLine().ToLower().Trim();
+                string statSelection = Gui.GetInputInt($"Which stat do you wish to increase? (You have {statPoints} left.)");
+
                 switch (statSelection)
                 {
-                    case "strength":
-                        this.strength += 1;
-                        Gui.Announcement($"Your new strength is {this.strength}");
+                    case "Strength":
+                        Strength += 1;
+                        Gui.Announcement($"Your new Strength is {Strength}");
                         break;
-                    case "vitality":
-                        this.vitality += 1;
-                        Gui.Announcement($"Your new vitality is {this.vitality}");
+                    case "Vitality":
+                        Vitality += 1;
+                        Gui.Announcement($"Your new Vitality is {Vitality}");
                         break;
-                    case "dexterity":
-                        this.dexterity += 1;
-                        Gui.Announcement($"Your new dexterity is {this.dexterity}");
+                    case "Dexterity":
+                        Dexterity += 1;
+                        Gui.Announcement($"Your new Dexterity is {Dexterity}");
                         break;
-                    case "agility":
-                        this.agility += 1;
-                        Gui.Announcement($"Your new agility is {this.agility}");
+                    case "Agility":
+                        Agility += 1;
+                        Gui.Announcement($"Your new Agility is {Agility}");
                         break;
-                    case "intelligence":
-                        this.intelligence += 1;
-                        Gui.Announcement($"Your new intelligence is {this.intelligence}");
+                    case "Intelligence":
+                        Intelligence += 1;
+                        Gui.Announcement($"Your new Intelligence is {Intelligence}");
                         break;
                 }
                 StatPointsDecrement(1);
             }
         }
 
-            public virtual void Attack(int damage, int criticalChance, int criticalDamage, int accuracy)
+            public virtual void Attack(int Damage, int CriticalChance, int CriticalDamage, int Accuracy)
             {
 
             }

@@ -13,7 +13,7 @@ namespace ShaRPG
             }
 
             Game game = new();
-            Gui.Title("Welcome");
+            Gui.Title("Welcome to ShaRPG!");
             game.Run();
         }
     }

@@ -12,13 +12,15 @@ namespace ShaRPG.States
         public StateGame(Stack<State> stack, Character activeCharacter) 
             : base(stack) 
         {
-            this.character = activeCharacter;
+            character = activeCharacter;
         }
 
         public static void GenerateMonster(int lvl)
         {
-            Monster randomMonster = new();
-            randomMonster.DistributeVariables(lvl);
+            CreatureCreator randomMonster = new();
+            string creatureChoice = Gui.GetInputInt("What kind of creature you want");
+
+            randomMonster.DistributeVariables(lvl, creatureChoice);
             Console.WriteLine(randomMonster.ToStringDetailed());
         }
 
@@ -29,76 +31,45 @@ namespace ShaRPG.States
                 case "-1":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    this.end = true;
+                    end = true;
                     break;
                 case "1":
-                    Console.Clear();
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.WriteLine(this.character.ToString());
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
                 case "C":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.WriteLine(this.character.ToString());
+                    Console.WriteLine(character.ToString());
                     Console.ReadKey();
                     Console.Clear();
                     break;
                 case "2":
-                    Console.Clear();
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.WriteLine(this.character.ToStringDetailed());
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
                 case "D":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.WriteLine(this.character.ToStringDetailed());
+                    Console.WriteLine(character.ToStringDetailed());
                     Console.ReadKey();
                     Console.Clear();
                     break;
                 case "3":
-                    Console.Clear();
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    if (this.character.StatPoints == 0)
-                    {
-                        Console.WriteLine("You dont have stat points to spend!");
-                    } else
-                    {
-                        this.character.AddStats();
-                        this.character.CalculateStats();
-                    }
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
                 case "A":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    if (this.character.StatPoints == 0)
+                    if (character.StatPoints == 0)
                     {
                         Console.WriteLine("You dont have stat points to spend!");
                     }
                     else
                     {
-                        this.character.AddStats();
-                        this.character.CalculateStats();
+                        character.AddStats();
+                        CharacterCreator.CalculateCharStats(character);
                     }
                     Console.ReadKey();
                     Console.Clear();
                     break;
                 case "4":
-                    Console.Clear();
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    GenerateMonster(this.character.Level);
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
                 case "G":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    GenerateMonster(this.character.Level);
+                    GenerateMonster(character.Level);
                     Console.ReadKey();
                     Console.Clear();
                     break;
@@ -115,12 +86,12 @@ namespace ShaRPG.States
             Gui.MenuOption(1, "(C)haracter Stats");
             Gui.MenuOption(2, "(D)etailed Character Stats");
             Gui.MenuOption(3, "(A)pply Stat Points");
-            Gui.MenuOption(4, "(G)enerate a Random Monster");
+            Gui.MenuOption(4, "(G)enerate a Random CreatureCreator");
             Gui.MenuOption(-1, "(E)xit");
 
             string input = Gui.GetInputInt("").ToUpper().Trim();
 
-            this.ProcessInput(input);
+            ProcessInput(input);
         }
     }
 }

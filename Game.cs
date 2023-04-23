@@ -10,16 +10,16 @@ namespace ShaRPG
 
         public bool End
         {
-            get { return this.end; }
-            set { this.end = value; }
+            get { return end; }
+            set { end = value; }
         }
 
         private void InitStates()
         {
-            this.states = new Stack<State>();
+            states = new Stack<State>();
 
             // Push the first state 
-            this.states.Push(new StateMainMenu(this.states, this.characterList));
+            states.Push(new StateMainMenu(states, characterList));
         }
 
         private Stack<State> states;
@@ -29,30 +29,30 @@ namespace ShaRPG
         // Private Functions
         private void InitVariables()
         {
-            this.end = false;
+            end = false;
         }
 
         private void InitCharacterList()
         {
-            this.characterList = new ArrayList();
+            characterList = new ArrayList();
         }
 
         //Constructors and Destructors
         public Game() 
         {
-            this.InitVariables();
-            this.InitCharacterList();
-            this.InitStates();
+            InitVariables();
+            InitCharacterList();
+            InitStates();
         }
         public void Run()
         {
-            while(this.states.Count > 0)
+            while(states.Count > 0)
             {
-                this.states.Peek().Update();
+                states.Peek().Update();
 
-                if (this.states.Peek().RequestEnd)
+                if (states.Peek().RequestEnd)
                 {
-                    this.states.Pop();
+                    states.Pop();
 
                 }
             }

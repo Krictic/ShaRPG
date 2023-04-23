@@ -1,13 +1,5 @@
 #ShaRPG
 
-About thi branch:
-
-Since I am new at working with git repos, I made the misstake of altering my local master branch with important stuff, this
-meant that the coding I was working with on the GURPs-like branch (which used master as a base) is no longer updated. So i created
-this branch to help me keep things separated. Since I am not sure I wish to keep the changes I made here into master.
-
-I should decide soon if I wish to keep the old sytem or the new gurps-like system soon.
-
 Introduction:
 
 This is a small text-based game which runs on the console, navigation is done through numbers and strings indicate on the menu. (I do plan on changing that).
@@ -32,8 +24,8 @@ List of features:
 1. Basic rpg stats and derivated stats (will probably change later).
 2. Complex menu navigation with minimal hassle.
 3. Partial Character creation system.
-4. Character sheet banner with progress bar representing progress torwards the next level.
-5. Abilitiy to create multiple characters with personalize name, bio and job.
+4. Character sheet banner with progress bar representing progress torwards the next Level.
+5. Abilitiy to create multiple characters with personalize name, bio and Job.
 6. Ability to select a character to start a new game.
 7. Detailed character and monster stats sheet.
 8. Ability to generate random monster (all normal creatures in this game will be procedurally generated).
@@ -49,7 +41,7 @@ List of features:
 3. Basic combat system.
 4. Simple looting system (to be improved later)
 5. Inventory system.
-6. Merchants and using gold.
+6. Merchants and using Gold.
 7. Basic items and equipments.
 8. Basic item and equipment looting.
 9. Complex diablo-like items.
@@ -63,8 +55,4 @@ List of features:
 17. Procedurally generated dungeons.
 18. Statuses and effects.
 19. Magic and spells.
-
-(POSSIBLE FEATURES - Those may be done after)
-1. Implement a proper tabletop rpg system, currently considering Paizo´s ORC or the OpenRPG (this has been implemented in C++ but could be plausibly adapted into C#).
-(though I must say that i dislike d20 systems, I will look into it.)
 

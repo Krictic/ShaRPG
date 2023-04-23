@@ -2,7 +2,7 @@
 {
     internal class Gui
     {
-        public static void Title(String str)
+        public static void Title(string str)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             str = string.Format("==== {0} ====\n", str);
@@ -10,14 +10,14 @@
             Console.ResetColor();
         }
 
-        public static void MenuTitle(String str)
+        public static void MenuTitle(string str)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             str = string.Format("=== {0} ===\n", str);
             Console.Write(str);
             Console.ResetColor();
         }
-        public static void MenuOption(int index, String str)
+        public static void MenuOption(int index, string str)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             str = string.Format(" - ({0}) : {1}\n", index, str);
@@ -41,7 +41,7 @@
             Console.ResetColor();
         }
 
-        public static string ProgressBar(int min, int max, int width)
+        public static string ProgressBar(double min, double max, int width)
         {
             string bar = "[";
             double percent = ((double)min / max);
@@ -63,14 +63,19 @@
             return bar;
         } 
 
-        public static void GetInput(String str)
+        public static void GetInput(string str)
         {
             str = string.Format("{0} -> ", str);
             Console.Write(str);
         }
 
 
-        // Todo: Rewrite the function to handle valid string input as well.
+        /// <summary>
+        /// This will validate inputs and throw errors
+        /// if the input is not valid.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static string GetInputInt(string message)
         {
             string? input = null;

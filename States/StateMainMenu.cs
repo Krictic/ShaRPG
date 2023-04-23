@@ -15,8 +15,8 @@ namespace ShaRPG.States
         public StateMainMenu(Stack<State> states, ArrayList character_list)
             : base(states)
         {
-            this.characterList = character_list; // character_list is a local variable
-            this.activeCharacter = null;
+            characterList = character_list; // character_list is a local variable
+            activeCharacter = null;
         }
 
         public void ProcessInput(string input)
@@ -24,10 +24,10 @@ namespace ShaRPG.States
             switch(input)
             {
                 case "-1":
-                    this.end = true;
+                    end = true;
                     break;
                 case "E":
-                    this.end = true;
+                    end = true;
                     break;
                 case "-2":
                     if (!debugMode)
@@ -55,32 +55,22 @@ namespace ShaRPG.States
                     Update();
                     break;
                 case "1":
-                    this.StartNewGame();
-                    break;
                 case "N":
-                    this.StartNewGame();
+                    StartNewGame();
                     break;
                 case "2":
-                    Gui.Alert("Not implemented yet!");
-                    break;
                 case "l":
                     Gui.Alert("Not implemented yet!");
                     break;
                 case "3":
-                    Console.Clear();
-                    this.states.Push(new StateCharacterCreator(this.states, this.characterList));
-                    break;
                 case "C":
                     Console.Clear();
-                    this.states.Push(new StateCharacterCreator(this.states, this.characterList));
+                    states.Push(new StateCharacterCreator(states, characterList));
                     break;
                 case "4":
-                    Console.Clear();
-                    this.SelectCharacter();
-                    break;
                 case "S":
                     Console.Clear();
-                    this.SelectCharacter();
+                    SelectCharacter();
                     break;
                 default:
                     Console.Clear();
@@ -92,9 +82,9 @@ namespace ShaRPG.States
         override public void Update()
         {
             Console.SetCursorPosition(0, Console.CursorTop);
-            if (this.activeCharacter != null)
+            if (activeCharacter != null)
             {
-                Console.WriteLine(String.Format("{0}\n", this.activeCharacter.ToStringBanner()));
+                Console.WriteLine(string.Format("{0}\n", activeCharacter.ToStringBanner()));
             }
             if (debugMode == true)
             {
@@ -118,7 +108,7 @@ namespace ShaRPG.States
 
             string input = Convert.ToString(Gui.GetInputInt("")).ToUpper().Trim();
 
-            this.ProcessInput(input);
+            ProcessInput(input);
         }
 
         public void StartNewGame()
@@ -130,7 +120,7 @@ namespace ShaRPG.States
             }
             else if (activeCharacter != null || debugMode == true) // Start game
             {
-                this.states.Push(new StateGame(this.states, this.activeCharacter));
+                states.Push(new StateGame(states, activeCharacter));
             }
         }
 
@@ -138,16 +128,16 @@ namespace ShaRPG.States
         {
             Console.SetCursorPosition(0, Console.CursorTop);
             // Print all characters
-            for (int i = 0; i < this.characterList.Count; i++)
+            for (int i = 0; i < characterList.Count; i++)
             {
-                Console.WriteLine(String.Format("\n{0}:\n{1}", i, characterList[i].ToString()));
+                Console.WriteLine(string.Format("\n{0}:\n{1}", i, characterList[i].ToString()));
             }
 
             string choice = Gui.GetInputInt("Character Selection");
 
             try
             {
-                this.activeCharacter = (Character?)characterList[Convert.ToInt32(choice)];
+                activeCharacter = (Character?)characterList[Convert.ToInt32(choice)];
             }
             catch (Exception e)
             {
@@ -156,7 +146,7 @@ namespace ShaRPG.States
 
             if (activeCharacter != null)
             {
-                Gui.Announcement(String.Format("The character {0} was selected!", this.activeCharacter.Name));
+                Gui.Announcement(string.Format("The character {0} was selected!", activeCharacter.Name));
             }
 
             Console.ReadKey();

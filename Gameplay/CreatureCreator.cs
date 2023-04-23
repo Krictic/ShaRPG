@@ -11,21 +11,21 @@ namespace ShaRPG.Gameplay
     {
 
         // Loot (CreatureCreator-specific variable)
-        private double loot;
-        private double expGain;
+        private double loot { get; set; }
+        private double expGain { get; set; }
 
-        public double Loot
-        {
-            get { return loot; }
-            set { loot = value; }
-        }
+        public double GetLoot()
+        { return loot; }
 
-        public double ExpGain
-        {
-            get { return expGain; }
-            set { expGain = value; }
-        }
-       
+        public void SetLoot(double value)
+        { loot = value; }
+
+        public double GetExpGain()
+        { return expGain; }
+
+        public void SetExpGain(double value)
+        { expGain = value; }
+
         public CreatureCreator() : base()
         {
 
@@ -40,13 +40,13 @@ namespace ShaRPG.Gameplay
         public void DistributeVariables(int charLvl, string creatureType = "creature")
         {
             // Set name and biography to random strings
-            Name = $"Random {creatureType}";
-            Job = "Rat";
-            Biography = $"An randomly generated {creatureType} for you to fight against!";
-            Level = charLvl;
+            SetName($"Random {creatureType}");
+            SetJob("Rat");
+            SetBiography($"An randomly generated {creatureType} for you to fight against!");
+            SetLevel(charLvl);
 
             //Placeholder values for irrelevant stats for monsters (should porbably find a better way)
-            Gold = 0;
+            SetGold(0);
 
             // The two stats below give the creature their stats and bonuses
             PoolDistribution(charLvl);
@@ -87,42 +87,42 @@ namespace ShaRPG.Gameplay
         {
             Random random = new();
             // Set the StatPoints pool to be equivalent to the player.
-            StatPoints = StatPointsCalculate(charLvl);
-            Level = charLvl;
+            SetStatPoints(StatPointsCalculate(charLvl));
+            SetLevel(charLvl);
             // Set a counting variable to guarantee that all statpoints are spent.
             int count = 0;
 
             // Randomly distributes the StatPoints pool
-            while (count != StatPoints)
+            while (count != GetStatPoints())
             {
                 int variableIndex = random.Next(5);
                 switch (variableIndex)
                 {
                     case 0:
-                        Strength += 1;
+                        SetStrength(GetStrength() + 1);
                         count++;
                         break;
                     case 1:
-                        Vitality += 1;
+                        SetVitality(GetVitality() + 1);
                         count++;
                         break;
                     case 2:
-                        Dexterity += 1;
+                        SetDexterity(GetDexterity() + 1);
                         count++;
                         break;
                     case 3:
-                        Agility += 1;
+                        SetAgility(GetAgility() + 1);
                         count++;
                         break;
                     case 4:
-                        Intelligence += 1;
+                        SetIntelligence(GetIntelligence() + 1);
                         count++;
                         break;
                     default:
                         break;
                 }
             }
-            StatPoints = 0;
+            SetStatPoints(0);
         }
 
         /// <summary>
@@ -131,45 +131,45 @@ namespace ShaRPG.Gameplay
         private void LootExpCalculate()
         {
             // This calculates the average values of stats
-            var arr = new int[] { Strength + Vitality + Dexterity + Agility + Intelligence };
+            var arr = new int[] { GetStrength() + GetVitality() + GetDexterity() + GetAgility() + GetIntelligence() };
             double avg = Queryable.Average(arr.AsQueryable());
 
             Random randomLootSeed = new();
-            Loot = (randomLootSeed.Next(1, 10) * avg) / 4;
+            SetLoot((randomLootSeed.Next(1, 10) * avg) / 4);
             Random randomExpSeed = new();
-            ExpGain = (randomExpSeed.Next(1, 10) * avg) / 4;
+            SetExpGain((randomExpSeed.Next(1, 10) * avg) / 4);
         }
 
         public override string ToStringDetailed()
         {
             return
                 $"========== Information ==========n\n"
-                + $"Name:{Name}\n"
-                + $"Biography:{Biography}\n"
-                + $"Job:{Job}\n"
-                + $"Level:{Level}\n"
-                + $"Stat Points:{StatPoints}\n"
-                + $"Exp/MaxExp:{Experience}/{MaxExperience}\n"
+                + $"Name:{GetName()}\n"
+                + $"Biography:{GetBiography()}\n"
+                + $"Job:{GetJob()}\n"
+                + $"Level:{GetLevel()}\n"
+                + $"Stat Points:{GetStatPoints()}\n"
+                + $"Exp/MaxExp:{GetExperience()}/{GetMaxExperience()}\n"
                 + $"\n========== Stats ==========n\n"
-                + $"Strenght: {Strength}\n"
-                + $"Vitality: {Vitality}\n"
-                + $"Dexterity: {Dexterity}\n"
-                + $"Agility: {Agility}\n"
-                + $"Dexterity: {Vitality}\n"
-                + $"Inteligence: {Intelligence}\n"
+                + $"Strenght: {GetStrength()}\n"
+                + $"Vitality: {GetVitality()}\n"
+                + $"Dexterity: {GetDexterity()}\n"
+                + $"Agility: {GetAgility()}\n"
+                + $"Dexterity: {GetVitality()}\n"
+                + $"Inteligence: {GetIntelligence()}\n"
                 + $"\n========== Derived Stats ==========\n"
-                + $"HP: {Hp}\n"
-                + $"MaxHP: {HpMax}\n"
-                + $"Damage: {Damage}\n"
-                + $"Max Damage: {DamageMax}\n"
-                + $"Accuracy: {Accuracy}\n"
-                + $"Defence: {Defence}\n"
-                + $"Mana/Max Mana: {Mana}" + $"/ {ManaMax}\n"
-                + $"Critical Chance: {CriticalChance}\n"
-                + $"Deflection: {Deflection}\n"
-                + $"Evasion: {Evasion}\n"
-                + $"ExpGain: {expGain}\n"
-                + $"Loot: {Loot}";
+                + $"HP: {GetHp()}\n"
+                + $"MaxHP: {GetHpMax()}\n"
+                + $"Damage: {GetDamage()}\n"
+                + $"Max Damage: {GetDamageMax()}\n"
+                + $"Accuracy: {GetAccuracy()}\n"
+                + $"Defence: {GetDefence()}\n"
+                + $"Mana/Max Mana: {GetMana()}" + $"/ {GetManaMax()}\n"
+                + $"Critical Chance: {GetCriticalChance()}\n"
+                + $"Deflection: {GetDeflection()}\n"
+                + $"Evasion: {GetEvasion()}\n"
+                + $"ExpGain: {GetExpGain()}\n"
+                + $"Loot: {GetLoot()}";
         }
     }
 }

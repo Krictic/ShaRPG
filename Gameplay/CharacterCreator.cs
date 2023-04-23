@@ -14,16 +14,13 @@ namespace ShaRPG.Gameplay
         // Todo: Fix unhandled format exception on this function.
         public ArrayList CreateCharacter(ArrayList characterList)
         {
-            string name;
-            string biography;
-            string jobName;
 
             Gui.GetInput("Name");
-            name = Console.ReadLine();
+            string name = Console.ReadLine();
             Gui.GetInput("Write a biography for your character");
-            biography = Console.ReadLine().ToLower().Trim();
+            string biography = Console.ReadLine().ToLower().Trim();
             Gui.GetInput("What is your character´s Job? (You can choose either (1)(W)arrior or (2)(A)rcher)");
-            jobName = Console.ReadLine().ToLower().Trim();
+            string jobName = Console.ReadLine().ToLower().Trim();
 
             // instantiate the appropriate Job class based on user input
             if (jobName.ToLower() == "warrior" || jobName.ToLower() == "w" || jobName.ToLower() == "1")
@@ -37,7 +34,6 @@ namespace ShaRPG.Gameplay
                 characterList = JobProcessing(name, biography, archer, characterList);
 
             }
-            Gui.Announcement("Character created!");
             // I am not entirely sure if this will work out
             return characterList;
         }
@@ -59,13 +55,11 @@ namespace ShaRPG.Gameplay
             {
                 Warrior warrior = new();
                 characterList = JobProcessing(name, biography, warrior, characterList);
-                Gui.Announcement("Character created!");
             }
             else if (jobName.ToLower() == "archer" || jobName.ToLower() == "a" || jobName.ToLower() == "2")
             {
                 Archer archer = new();
                 characterList = JobProcessing(name, biography, archer, characterList);
-                Gui.Announcement("Character created!");
             }
 
             // God i hope this works.
@@ -98,27 +92,27 @@ namespace ShaRPG.Gameplay
         public static void CalculateCharStats(Character character)
         {
             // Some shorthands for basic stats
-            int st = character.Strength;
-            int vit = character.Vitality;
-            int dex = character.Dexterity;
-            int agi = character.Agility;
-            int iq = character.Intelligence;
+            int st = character.GetStrength();
+            int vit = character.GetVitality();
+            int dex = character.GetDexterity();
+            int agi = character.GetAgility();
+            int iq = character.GetIntelligence();
 
             // Calculate secondary stats
-            character.Damage = character.CalculateBaseDamage(st);
-            character.HpMax = character.CalculateHpMax(vit);
-            character.Hp = character.HpMax;
-            character.Accuracy = character.CalculateAccuracy(dex);
-            character.Defence = character.CalculateDefence(agi);
-            character.ManaMax = character.CalculateManaMax(iq);
+            character.SetDamage(character.CalculateBaseDamage(st));
+            character.SetHpMax(character.CalculateHpMax(vit));
+            character.SetHp(character.GetHpMax());
+            character.SetAccuracy(character.CalculateAccuracy(dex));
+            character.SetDefence(character.CalculateDefence(agi));
+            character.SetManaMax(character.CalculateManaMax(iq));
 
             // Calculate tertiary stats
-            character.CriticalChance = character.CalculateCritChance(dex, character.Accuracy);
-            character.CriticalDamage = character.CalculateCritDamage(dex, iq, character.Damage);
+            character.SetCriticalChance(character.CalculateCritChance(dex, character.GetAccuracy()));
+            character.SetCriticalDamage(character.CalculateCritDamage(dex, iq, character.GetDamage()));
 
             // Calculate experience stats
-            character.StatPoints = Character.StatPointsCalculate(character.Level);
-            character.MaxExperience = character.CalculateExp(character.Level);
+            character.SetStatPoints(Character.StatPointsCalculate(character.GetLevel()));
+            character.SetMaxExperience(character.CalculateExp(character.GetLevel()));
         }
 
         /// <summary>
@@ -128,7 +122,7 @@ namespace ShaRPG.Gameplay
         public static void charaID(Character character)
         {
             Guid uuid = new();
-            character.ID = uuid;
+            character.SetID(uuid);
         }
 
         public static void printAndStoreCharacter(Character character)
@@ -137,10 +131,11 @@ namespace ShaRPG.Gameplay
 
             foreach (var property in character.GetType().GetProperties())
             {
-                Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
+                //Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
                 charDict.Add(property.Name, property.GetValue(character));
             }
 
+            Gui.Announcement($"Character {character.GetName()} created!");
             string json = JsonConvert.SerializeObject(charDict, Newtonsoft.Json.Formatting.Indented);
             File.AppendAllText("dict.json", json + Environment.NewLine);
         }

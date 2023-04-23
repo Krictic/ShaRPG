@@ -53,13 +53,13 @@ namespace ShaRPG.States
                 case "A":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    if (character.StatPoints == 0)
+                    if (character.GetStatPoints() == 0)
                     {
                         Console.WriteLine("You dont have stat points to spend!");
                     }
                     else
                     {
-                        character.AddStats();
+                        character.AddStats(character);
                         CharacterCreator.CalculateCharStats(character);
                     }
                     Console.ReadKey();
@@ -69,7 +69,7 @@ namespace ShaRPG.States
                 case "G":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    GenerateMonster(character.Level);
+                    GenerateMonster(character.GetLevel());
                     Console.ReadKey();
                     Console.Clear();
                     break;

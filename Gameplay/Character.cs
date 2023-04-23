@@ -7,211 +7,231 @@ namespace ShaRPG.Gameplay
 
         // Private classes
         // Core properties
-        private string name = "";
-        private string biography = "";
-        private string job = "";
-        private int level = 4;
-        private int statPoints;
-        double exp = 0;
-        double expMax = 100;
+        private string name { get; set; }
+        private string biography { get; set; }
+        private string job { get; set; }
+        private int level { get; set; }  = 4;
+        private int statPoints { get; set; }
+        double exp { get; set; }  = 0;
+        double expMax { get; set; }  = 100;
 
         // Base Stats
-        private int strength = 1;
-        private int vitality = 1;
-        private int dexterity = 1;
-        private int agility = 1;
-        private int intelligence = 1;
+        private int strength { get; set; }  = 1;
+        private int vitality { get; set; }  = 1;
+        private int dexterity { get; set; }  = 1;
+        private int agility { get; set; } = 1;
+        private int intelligence { get; set; } = 1;
 
         // Secondary Stats  (derived from Base stats)
-        private int hp = 0;
-        private int hpMax = 0;
-        private int damage = 0;
-        private int damageMax = 0;
-        private int accuracy = 0;
-        private int defence = 0;
-        private int mana = 0;
-        private int manaMax = 0;
-        private int deflection = 0;
-        private int evasion = 0;
+        private int hp { get; set; } = 0;
+        private int hpMax { get; set; } = 0;
+        private int damage { get; set; } = 0;
+        private int damageMax { get; set; } = 0;
+        private int accuracy { get; set; } = 0;
+        private int defence { get; set; } = 0;
+        private int mana { get; set; } = 0;
+        private int manaMax { get; set; } = 0;
+        private int deflection { get; set; } = 0;
+        private int evasion { get; set; } = 0;
 
         // Tertiary stats (derived from secondary Stats)
-        private double criticalChance = 0;
-        private double criticalDamage = 0;
+        private double criticalChance { get; set; } = 0;
+        private double criticalDamage { get; set; } = 0;
 
         // General
-        private int gold = 100;
+        private int gold { get; set; } = 100;
 
         // Indexing variable
-        private Guid id;
+        private Guid id { get; set; }
 
         // Public Setters and Getters
-        public Guid ID
-        { 
-            get { return id; }
-            set { id = value; }
+
+        public string GetName()
+        {
+            return this.name;
         }
 
-        public int Deflection
+        public void SetName(string Name)
         {
-            get { return deflection; }
-            set { deflection = value; }
+            this.name = Name;
         }
 
-        public int Evasion
+        public Guid GetID()
         {
-            get { return evasion; }
-            set { evasion = value; }
+            return this.id;
         }
 
-        public string Name
+        public void SetID(Guid ID)
         {
-            get { return name; }
-            set { name = value; }
+            this.id = ID;
         }
 
-        public string Biography
+        public string GetBiography()
         {
-            get { return biography; }
-            set { biography = value; }
+            return biography;
         }
 
-        public string Job
+        public void SetBiography(string biography)
         {
-            get { return job; }
-            set { job = value; }
+            this.biography = biography;
         }
 
-        public int StatPoints
+        public string GetJob()
+        { return job; }
+
+        public void SetJob(string job)
+        { this.job = job; }
+
+        public int GetStatPoints()
+        { return statPoints; }
+
+        public void SetStatPoints(int value)
+        { statPoints = value; }
+
+        public int GetLevel()
+        { return level; }
+
+        public void SetLevel(int value)
+        { level = value; }
+
+        public int GetStrength()
+        { return strength; }
+
+        public void SetStrength(int value)
+        { strength = value; }
+
+        public int GetVitality()
+        { return vitality; }
+
+        public void SetVitality(int value)
+        { vitality = value; }
+
+        public int GetDexterity()
+        { return dexterity; }
+
+        public void SetDexterity(int value)
+        { dexterity = value; }
+
+        public int GetAgility()
+        { return agility; }
+
+        public void SetAgility(int value)
+        { agility = value; }
+
+        public int GetIntelligence()
+        { return intelligence; }
+
+        public void SetIntelligence(int value)
+        { intelligence = value; }
+
+        public int GetHp()
+        { return hp; }
+
+        public void SetHp(int value)
+        { hp = value; }
+
+        public int GetHpMax()
+        { return hpMax; }
+
+        public void SetHpMax(int value)
+        { hpMax = value; }
+
+        public int GetDamage()
+        { return damage; }
+
+        public void SetDamage(int value)
+        { damage = value; }
+
+        public int GetDamageMax()
+        { return damageMax; }
+
+        public void SetDamageMax(int value)
+        { damageMax = value; }
+
+        public int GetAccuracy()
+        { return accuracy; }
+
+        public void SetAccuracy(int value)
+        { accuracy = value; }
+
+        public int GetDefence()
+        { return defence; }
+
+        public void SetDefence(int value)
+        { defence = value; }
+
+        public int GetMana()
+        { return mana; }
+
+        public void SetMana(int value)
+        { mana = value; }
+
+        public int GetManaMax()
+        { return manaMax; }
+
+        public void SetManaMax(int value)
+        { manaMax = value; }
+
+        public double GetCriticalChance()
+        { return criticalChance; }
+
+        public void SetCriticalChance(double value)
+        { criticalChance = value; }
+
+        public double GetCriticalDamage()
+        { return criticalDamage; }
+
+        public void SetCriticalDamage(double value)
+        { criticalDamage = value; }
+
+        public int GetDeflection()
         {
-            get { return statPoints; }
-            set { statPoints = value; }
+            return this.deflection;
         }
 
-        public int Level
+        public void SetDeflection(int deflection)
         {
-            get { return level; }
-            set { level = value; }
+            this.deflection = deflection;
         }
 
-        public int Strength
+        public int GetEvasion()
         {
-            get { return strength; }
-            set { strength = value; }
+            return this.deflection;
         }
 
-        public int Vitality
+        public void SetEvasion(int deflection)
         {
-            get { return vitality; }
-            set { vitality = value; }
+            this.deflection = deflection;
         }
 
-        public int Dexterity
-        {
-            get { return dexterity; }
-            set { dexterity = value; }
-        }
+        public double GetExperience()
+        { return exp; }
 
-        public int Agility
-        {
-            get { return agility; }
-            set { agility = value; }
-        }
+        public void SetExperience(double value)
+        { exp = value; }
 
-        public int Intelligence
-        {
-            get { return intelligence; }
-            set { intelligence = value; }
-        }
+        public double GetMaxExperience()
+        { return expMax; }
 
-        public int Hp
-        {
-            get { return hp; }
-            set { hp = value; }
-        }
+        public void SetMaxExperience(double value)
+        { expMax = value; }
 
-        public int HpMax
-        {
-            get { return hpMax; }
-            set { hpMax = value; }
-        }
+        public int GetGold()
+        { return gold; }
 
-        public int Damage
-        {
-            get { return damage; }
-            set { damage = value; }
-        }
-
-        public int DamageMax
-        {
-            get { return damageMax; }
-            set { damageMax = value; }
-        }
-
-        public int Accuracy
-        {
-            get { return accuracy; }
-            set { accuracy = value; }
-        }
-
-        public int Defence
-        {
-            get { return defence; }
-            set { defence = value; }
-        }
-
-        public int Mana
-        {
-            get { return mana; }
-            set { mana = value; }
-        }
-
-        public int ManaMax
-        {
-            get { return manaMax; }
-            set { manaMax = value; }
-        }
-
-        public double CriticalChance
-        {
-            get { return criticalChance; }
-            set { criticalChance = value; }
-        }
-
-        public double CriticalDamage
-        {
-            get { return criticalDamage; }
-            set { criticalDamage = value; }
-        }
-
-        public double Experience
-        {
-            get { return exp; }
-            set { exp = value; }
-        }
-
-        public double MaxExperience
-        {
-            get { return expMax; }
-            set { expMax = value; }
-        }
-
-        public int Gold
-        {
-            get { return gold; }
-            set { gold = value; }
-        }
+        public void SetGold(int value)
+        { gold = value; }
 
         // This will calculate the expMax variable to follow a exponential progression (factor of 2)
         public double CalculateExp(int characterLevel)
         {
             if (characterLevel == 1)
             {
-                return MaxExperience;
+                return GetMaxExperience();
             } 
             else
             {
-                int levelMultiplier = 2;
-                return MaxExperience * (Math.Pow(level - 1, 2));
+                return GetMaxExperience() * (Math.Pow(level - 1, 2));
             }
         }
 
@@ -259,17 +279,18 @@ namespace ShaRPG.Gameplay
 
         public void StatPointsDecrement(int spentPoints)
         {
-            statPoints -= spentPoints;
+            int malus = GetStatPoints() - spentPoints;
+            SetStatPoints(malus);
         } 
 
         public Character(string name = "Chadicus", string biography = "Maximus")
         {
-            Name = name;
-            Biography = biography;
+            SetName(name);
+            SetBiography(biography);
         }
         public string ToStringBanner()
         {
-            string str = $"[ {Name} | Lv: {Level} | Job: {Job} {Gui.ProgressBar(Experience, MaxExperience, 25)} ]";
+            string str = $"[ {GetName()} | Lv: {GetLevel()} | Job: {GetJob()} {Gui.ProgressBar(GetExperience(), GetMaxExperience(), 25)} ]";
 
             return str;
         }
@@ -279,11 +300,11 @@ namespace ShaRPG.Gameplay
         public override string ToString()
         {
             string str =
-                $"Name:\t\t{Name}\n" +
-                $"Job:\t\t{Job}\n" +
-                $"Level:\t\t{Level}\n" +
-                $"Stat Points:\t{StatPoints}\n" +
-                $"Exp:\t\t{Experience}/{MaxExperience} {Gui.ProgressBar(Experience, MaxExperience, 25)}\n";
+                $"Name:\t\t{GetName()}\n" +
+                $"Job:\t\t{GetJob()}\n" +
+                $"Level:\t\t{GetLevel()}\n" +
+                $"Stat Points:\t{GetStatPoints()}\n" +
+                $"Exp:\t\t{GetExperience()}/{GetMaxExperience()} {Gui.ProgressBar(GetExperience(), GetMaxExperience(), 25)}\n";
 
             return str;
         }
@@ -291,31 +312,31 @@ namespace ShaRPG.Gameplay
         public virtual string ToStringDetailed()
         {
             string str =
-                $"Name:{Name}\n"
-                + $"Biography:{Biography}\n"
-                + $"Job:{Job}\n"
-                + $"Level:{Level}\n"
+                $"Name:{GetName()}\n"
+                + $"Biography:{GetBiography()}\n"
+                + $"Job:{GetJob()}\n"
+                + $"Level:{GetLevel()}\n"
                 + $"Stat Points:{statPoints}\n"
-                + $"Exp/MaxExp:{Experience}/{MaxExperience}\n"
+                + $"Exp/MaxExp:{GetExperience()}/{GetMaxExperience()}\n"
                 + $"\n========== Stats ==========n\n"
-                + $"Strenght: {Strength}\n"
-                + $"Vitality: {Vitality}\n"
-                + $"Dexterity: {Dexterity}\n"
-                + $"Agility: {Agility}\n"
-                + $"Dexterity: {Vitality}\n"
-                + $"Inteligence: {Intelligence}\n"
+                + $"Strenght: {GetStrength()}\n"
+                + $"Vitality: {GetVitality()}\n"
+                + $"Dexterity: {GetDexterity()}\n"
+                + $"Agility: {GetAgility()}\n"
+                + $"Dexterity: {GetVitality()}\n"
+                + $"Inteligence: {GetIntelligence()}\n"
                 + $"\n========== Derived Stats ==========\n"
-                + $"HP: {Hp}\n"
-                + $"MaxHP: {hpMax}\n"
-                + $"Damage: {Damage}\n"
-                + $"Max Damage: {DamageMax}\n"
-                + $"Accuracy: {Accuracy}\n"
-                + $"Defence: {Defence}\n"
-                + $"Mana/Max Mana: {Mana}" + $"/ {ManaMax}\n"
-                + $"Critical Chance: {CriticalChance}\n" 
-                + $"Deflection: {Deflection}"
-                + $"Evasion: {Evasion}"
-                + $"Gold: {Gold}";
+                + $"HP: {GetHp()}\n"
+                + $"MaxHP: {GetHpMax()}\n"
+                + $"Damage: {GetDamage()}\n"
+                + $"Max Damage: {GetDamageMax()}\n"
+                + $"Accuracy: {GetAccuracy()}\n"
+                + $"Defence: {GetDefence()}\n"
+                + $"Mana/Max Mana: {GetMana()}" + $"/ {GetManaMax()}\n"
+                + $"Critical Chance: {GetCriticalChance()}\n" 
+                + $"Deflection: {GetDeflection()}\n"
+                + $"Evasion: {GetEvasion()}\n"
+                + $"Gold: {GetGold()}";
             return str;
         }
 
@@ -323,66 +344,88 @@ namespace ShaRPG.Gameplay
         {
             Dictionary<string, object> characterDict = new()
             {
-                { "name", Name },
-                { "biography", Biography },
-                { "Job", Job },
-                { "Level", Level },
+                { "name", GetName() },
+                { "biography", GetBiography() },
+                { "Job", GetJob() },
+                { "Level", GetLevel() },
                 { "statPoints", statPoints },
-                { "Experience", Experience },
-                { "MaxExperience", MaxExperience },
-                { "Strength", Strength },
-                { "Vitality", Vitality },
-                { "Dexterity", Dexterity },
-                { "Agility", Agility },
-                { "inteligence", Intelligence },
-                { "Hp", Hp },
-                { "hpMax", HpMax },
-                { "Damage", Damage },
-                { "DamageMax", DamageMax },
-                { "Accuracy", Accuracy },
-                { "Defence", Defence },
-                { "Mana", Mana },
-                { "maximum Mana", ManaMax},
-                { "CriticalChance", CriticalChance },
-                { "Deflection", Deflection },
-                { "Evasion", Evasion },
-                { "Gold", Gold }
+                { "Experience", GetExperience() },
+                { "MaxExperience", GetMaxExperience() },
+                { "Strength", GetStrength() },
+                { "Vitality", GetVitality() },
+                { "Dexterity", GetDexterity() },
+                { "Agility", GetAgility() },
+                { "inteligence", GetIntelligence() },
+                { "Hp", GetHp() },
+                { "hpMax", GetHpMax() },
+                { "Damage", GetDamage() },
+                { "DamageMax", GetDamageMax() },
+                { "Accuracy", GetAccuracy() },
+                { "Defence", GetDefence() },
+                { "Mana", GetMana() },
+                { "maximum Mana", GetManaMax()},
+                { "CriticalChance", GetCriticalChance() },
+                { "Deflection", GetDeflection() },
+                { "Evasion", GetEvasion() },
+                { "Gold", GetGold() }
             };
 
             Console.WriteLine(characterDict);
 
         }
 
-        public void AddStats()
+        public void AddStats(Character character)
         {
-            while (statPoints > 0)
+            while (character.GetStatPoints() > 0)
             {
-                string statSelection = Gui.GetInputInt($"Which stat do you wish to increase? (You have {statPoints} left.)");
-
+                string statSelection = Gui.GetInputInt($"Which stat do you wish to increase? (You have {character.GetStatPoints()} left.)").ToLower().Trim();
+                bool valid = true;
                 switch (statSelection)
                 {
-                    case "Strength":
-                        Strength += 1;
-                        Gui.Announcement($"Your new Strength is {Strength}");
+                    case "st":
+                    case "str":
+                    case "strength":
+                        SetStrength(character.GetStrength() + 1);
+                        Gui.Announcement($"Your new Strength is {GetStrength()}");
                         break;
-                    case "Vitality":
-                        Vitality += 1;
-                        Gui.Announcement($"Your new Vitality is {Vitality}");
+                    case "vt":
+                    case "vit":
+                    case "vitality":
+                        SetVitality(character.GetVitality() + 1);
+                        Gui.Announcement($"Your new Vitality is {GetVitality()}");
                         break;
-                    case "Dexterity":
-                        Dexterity += 1;
-                        Gui.Announcement($"Your new Dexterity is {Dexterity}");
+                    case "dx":
+                    case "dex":
+                    case "dexterity":
+                        SetDexterity(character.GetDexterity() + 1);
+                        Gui.Announcement($"Your new Dexterity is {GetDexterity()}");
                         break;
-                    case "Agility":
-                        Agility += 1;
-                        Gui.Announcement($"Your new Agility is {Agility}");
+                    case "ag":
+                    case "agi":
+                    case "agility":
+                        SetAgility(character.GetAgility() + 1);
+                        Gui.Announcement($"Your new Agility is {GetAgility()}");
                         break;
-                    case "Intelligence":
-                        Intelligence += 1;
-                        Gui.Announcement($"Your new Intelligence is {Intelligence}");
+                    case "iq":
+                    case "int":
+                    case "intelligence":
+                        SetIntelligence(character.GetIntelligence() + 1);
+                        Gui.Announcement($"Your new Intelligence is {GetIntelligence()}");
+                        break;
+                    default:
+                        valid = false;
+                        Gui.Alert("Choose a valid attirbute.");
                         break;
                 }
-                StatPointsDecrement(1);
+                if (valid)
+                {
+                    character.StatPointsDecrement(1);
+                }
+                else
+                {
+                    continue;
+                }
+                
             }
         }
 

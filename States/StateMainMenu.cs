@@ -174,7 +174,7 @@ namespace ShaRPG.States
 
             if (activeCharacter != null)
             {
-                Gui.Announcement(string.Format("The character {0} was selected!", activeCharacter.Name));
+                Gui.Announcement(string.Format($"The character {this.activeCharacter.GetName()} was selected!"));
             }
 
             Console.ReadKey();

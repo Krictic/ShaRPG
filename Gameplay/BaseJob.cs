@@ -27,13 +27,13 @@ internal abstract class BaseJob
     /// </param>
     public virtual void ApplyBonuses(Character character)
     {
-        character.Job = JobName;
-        character.Hp += HpBonus;
-        character.Strength += StrengthBonus;
-        character.Vitality += VitalityBonus;
-        character.Dexterity += DexterityBonus;
-        character.Agility += AgilityBonus;
-        character.Intelligence += IntelligenceBonus;
+        character.SetJob(JobName);
+        character.SetHp(character.GetHp() + HpBonus);
+        character.SetStrength(character.GetStrength() + StrengthBonus);
+        character.SetVitality(character.GetVitality() + VitalityBonus);
+        character.SetDexterity(character.GetDexterity() + DexterityBonus);
+        character.SetAgility(character.GetAgility() + AgilityBonus);
+        character.SetIntelligence(character.GetIntelligence() + IntelligenceBonus);
     }
 
 

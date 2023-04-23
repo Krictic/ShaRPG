@@ -8,7 +8,7 @@ namespace ShaRPG.Gameplay
 
         // Private classes
         // Core properties
-        private String name = "";
+        private string name { get; set; }
         private string biography = "";
         private string job = "";
         private int level = 3;
@@ -46,12 +46,6 @@ namespace ShaRPG.Gameplay
         { 
             get { return id; }
             set { id = value; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
         }
 
         public string Biography
@@ -184,6 +178,16 @@ namespace ShaRPG.Gameplay
         {
             get { return gold; }
             set { gold = value; }
+        }
+
+        public string GetName()
+        {
+            return this.name;
+        }
+
+        public void SetName(string Name)
+        {
+            this.name = Name;
         }
 
         public void CalculateExp()

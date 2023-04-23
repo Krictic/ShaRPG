@@ -75,7 +75,7 @@ namespace ShaRPG.States
 
             Gui.Announcement("Character created!");
         }
-
+        
         private void JobProcessing(string? name, string? biography, BaseJob job)
         {
             Character character = CharacterObject(name, biography);
@@ -152,25 +152,16 @@ namespace ShaRPG.States
             switch (input)
             {
                 case "-1":
-                    Console.Clear();
-                    this.end = true;
-                    break;
                 case "E":
                     Console.Clear();
                     this.end = true;
                     break;
                 case "1":
-                    Console.Clear();
-                    this.CreateCharacter();
-                    break;
                 case "N":
                     Console.Clear();
                     this.CreateCharacter();
                     break;
                 case "2":
-                    Console.Clear();
-                    this.CreateStandardCharacter("warrior");
-                    break;
                 case "G":
                     Console.Clear();
                     this.CreateStandardCharacter("warrior");

@@ -1,5 +1,5 @@
-﻿using ShaRPG.Gameplay;
-using ShaRPG.GUI;
+﻿using ShaRPG.Model;
+using ShaRPG.View.GUI;
 using System.Collections;
 
 namespace ShaRPG.States

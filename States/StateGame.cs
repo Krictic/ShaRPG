@@ -1,5 +1,5 @@
-﻿using ShaRPG.Gameplay;
-using ShaRPG.GUI;
+﻿using ShaRPG.Model;
+using ShaRPG.View.GUI;
 
 namespace ShaRPG.States
 {
@@ -17,11 +17,11 @@ namespace ShaRPG.States
 
         public static void GenerateMonster(int lvl)
         {
-            CreatureCreator randomMonster = new();
+            Creature randomMonster = new();
             string creatureChoice = Gui.GetInputInt("What kind of creature you want");
 
             randomMonster.DistributeVariables(lvl, creatureChoice);
-            Console.WriteLine(randomMonster.ToStringDetailed());
+            Console.WriteLine(Creature.ToStringDetailed(randomMonster));
         }
 
         public void ProcessInput(string input)
@@ -45,7 +45,7 @@ namespace ShaRPG.States
                 case "D":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.WriteLine(character.ToStringDetailed());
+                    Console.WriteLine(Character.ToStringDetailed(character));
                     Console.ReadKey();
                     Console.Clear();
                     break;
@@ -86,7 +86,7 @@ namespace ShaRPG.States
             Gui.MenuOption(1, "(C)haracter Stats");
             Gui.MenuOption(2, "(D)etailed Character Stats");
             Gui.MenuOption(3, "(A)pply Stat Points");
-            Gui.MenuOption(4, "(G)enerate a Random CreatureCreator");
+            Gui.MenuOption(4, "(G)enerate a Random Creature");
             Gui.MenuOption(-1, "(E)xit");
 
             string input = Gui.GetInputInt("").ToUpper().Trim();

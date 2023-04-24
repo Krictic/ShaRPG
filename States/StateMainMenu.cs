@@ -1,5 +1,5 @@
-﻿using ShaRPG.Gameplay;
-using ShaRPG.GUI;
+﻿using ShaRPG.Model;
+using ShaRPG.View.GUI;
 using System.Collections;
 
 namespace ShaRPG.States
@@ -118,7 +118,7 @@ namespace ShaRPG.States
         // Not gonna lie, im proud of this one. 
         private void CharacterBannerCreate()
         {
-            int len = activeCharacter.ToStringBanner().Length;
+            int len = Character.ToStringBanner(activeCharacter).Length;
             string label = "   Active Character   ";
             int labelLen = label.Length;
             int lenMinusLabelLen = (len - labelLen);
@@ -131,7 +131,7 @@ namespace ShaRPG.States
                 Console.Write("=");
             }
             Console.Write('\n');
-            Console.WriteLine(string.Format("{0}", activeCharacter.ToStringBanner()));
+            Console.WriteLine(string.Format("{0}", Character.ToStringBanner(activeCharacter)));
             for (int i = 0; i < len; i++)
             {
                 Console.Write("=");

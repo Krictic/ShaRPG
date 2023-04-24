@@ -1,16 +1,15 @@
-﻿using ShaRPG.Gameplay.JobClasses.CreatureClasses;
-using System.Security.Cryptography;
+﻿using ShaRPG.Model.JobClasses.CreatureClasses;
 
-namespace ShaRPG.Gameplay
+namespace ShaRPG.Model
 {
     /// <summary>
     /// This is a class for creating new creature instances.
     /// </summary>// Just a note on this class: I wanted a class specific for creature creation because the Creature
     // class is a job class, and I wish to treat Monsters as a kind of NPC.
-    internal class CreatureCreator : Character
+    internal class Creature : Character
     {
 
-        // Loot (CreatureCreator-specific variable)
+        // Loot (Creature-specific variable)
         private double loot { get; set; }
         private double expGain { get; set; }
 
@@ -26,11 +25,11 @@ namespace ShaRPG.Gameplay
         public void SetExpGain(double value)
         { expGain = value; }
 
-        public CreatureCreator() : base()
+        public Creature() : base()
         {
 
         }
-        
+
         /// <summary>
         /// This is the method for giving the creature instances a their stats and job
         /// bonuses.
@@ -74,11 +73,10 @@ namespace ShaRPG.Gameplay
             {
                 case "rat":
                 case "r":
-                case "0":
                     new Rat().ApplyBonuses(this);
                     break;
                 case "creature":
-                    new Creature().ApplyBonuses(this);
+                    new JobClasses.CreatureClasses.Creature().ApplyBonuses(this);
                     break;
             }
         }
@@ -132,44 +130,43 @@ namespace ShaRPG.Gameplay
         {
             // This calculates the average values of stats
             var arr = new int[] { GetStrength() + GetVitality() + GetDexterity() + GetAgility() + GetIntelligence() };
-            double avg = Queryable.Average(arr.AsQueryable());
+            double avg = arr.AsQueryable().Average();
 
             Random randomLootSeed = new();
-            SetLoot((randomLootSeed.Next(1, 10) * avg) / 4);
+            SetLoot(randomLootSeed.Next(1, 10) * avg / 4);
             Random randomExpSeed = new();
-            SetExpGain((randomExpSeed.Next(1, 10) * avg) / 4);
+            SetExpGain(randomExpSeed.Next(1, 10) * avg / 4);
         }
 
-        public override string ToStringDetailed()
+        public static string ToStringDetailed(Creature creature)
         {
             return
                 $"========== Information ==========n\n"
-                + $"Name:{GetName()}\n"
-                + $"Biography:{GetBiography()}\n"
-                + $"Job:{GetJob()}\n"
-                + $"Level:{GetLevel()}\n"
-                + $"Stat Points:{GetStatPoints()}\n"
-                + $"Exp/MaxExp:{GetExperience()}/{GetMaxExperience()}\n"
+                + $"Name:{creature.GetName()}\n"
+                + $"Biography:{creature.GetBiography()}\n"
+                + $"Job:{creature.GetJob()}\n"
+                + $"Level:{creature.GetLevel()}\n"
+                + $"Stat Points:{creature.GetStatPoints()}\n"
+                + $"Exp/MaxExp:{creature.GetExperience()}/{creature.GetMaxExperience()}\n"
                 + $"\n========== Stats ==========n\n"
-                + $"Strenght: {GetStrength()}\n"
-                + $"Vitality: {GetVitality()}\n"
-                + $"Dexterity: {GetDexterity()}\n"
-                + $"Agility: {GetAgility()}\n"
-                + $"Dexterity: {GetVitality()}\n"
-                + $"Inteligence: {GetIntelligence()}\n"
+                + $"Strenght: {creature.GetStrength()}\n"
+                + $"Vitality: {creature.GetVitality()}\n"
+                + $"Dexterity: {creature.GetDexterity()}\n"
+                + $"Agility: {creature.GetAgility()}\n"
+                + $"Inteligence: {creature.GetIntelligence()}\n"
                 + $"\n========== Derived Stats ==========\n"
-                + $"HP: {GetHp()}\n"
-                + $"MaxHP: {GetHpMax()}\n"
-                + $"Damage: {GetDamage()}\n"
-                + $"Max Damage: {GetDamageMax()}\n"
-                + $"Accuracy: {GetAccuracy()}\n"
-                + $"Defence: {GetDefence()}\n"
-                + $"Mana/Max Mana: {GetMana()}" + $"/ {GetManaMax()}\n"
-                + $"Critical Chance: {GetCriticalChance()}\n"
-                + $"Deflection: {GetDeflection()}\n"
-                + $"Evasion: {GetEvasion()}\n"
-                + $"ExpGain: {GetExpGain()}\n"
-                + $"Loot: {GetLoot()}";
+                + $"HP: {creature.GetHp()}\n"
+                + $"MaxHP: {creature.GetHpMax()}\n"
+                + $"Damage: {creature.GetDamage()}\n"
+                + $"Max Damage: {creature.GetDamageMax()}\n"
+                + $"Accuracy: {creature.GetAccuracy()}\n"
+                + $"Defence: {creature.GetDefence()}\n"
+                + $"Mana/Max Mana: {creature.GetMana()}" + $"/ {creature.GetManaMax()}\n"
+                + $"Critical Chance: {creature.GetCriticalChance()}\n"
+                + $"Deflection: {creature.GetDeflection()}\n"
+                + $"Evasion: {creature.GetEvasion()}\n"
+                + $"ExpGain: {creature.GetExpGain()}\n"
+                + $"Loot: {creature.GetLoot()}";
         }
     }
 }

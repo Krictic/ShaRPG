@@ -6,13 +6,13 @@ namespace ShaRPG
     internal class Game
     {
         // Member Variables
-        private bool end;
+        private bool end { get; set; }
 
-        public bool End
-        {
-            get { return end; }
-            set { end = value; }
-        }
+        public bool GetEnd()
+        { return end; }
+
+        public void SetEnd(bool value)
+        { end = value; }
 
         private void InitStates()
         {

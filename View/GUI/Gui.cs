@@ -1,4 +1,4 @@
-﻿namespace ShaRPG.GUI
+﻿namespace ShaRPG.View.GUI
 {
     internal class Gui
     {
@@ -44,7 +44,7 @@
         public static string ProgressBar(double min, double max, int width)
         {
             string bar = "[";
-            double percent = ((double)min / max);
+            double percent = (double)min / max;
             int complete = Convert.ToInt32(percent * width);
 
 
@@ -61,7 +61,7 @@
             bar += "]";
 
             return bar;
-        } 
+        }
 
         public static void GetInput(string str)
         {
@@ -85,8 +85,8 @@
                 try
                 {
                     GetInput(message);
-                    input = (string?)Console.ReadLine();
-                } 
+                    input = Console.ReadLine();
+                }
                 catch (Exception e) // Error
                 {
                     Console.WriteLine(e.Message);

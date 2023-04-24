@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using ShaRPG.Gameplay.JobClasses.CharacterClassess;
-using ShaRPG.GUI;
+using ShaRPG.Model.JobClasses.CharacterClassess;
+using ShaRPG.View.GUI;
 using System.Collections;
 
-namespace ShaRPG.Gameplay
+namespace ShaRPG.Model
 {
     internal class CharacterCreator
-{
+    {
         public void characterCreator()
         {
         }
@@ -136,7 +136,7 @@ namespace ShaRPG.Gameplay
             }
 
             Gui.Announcement($"Character {character.GetName()} created!");
-            string json = JsonConvert.SerializeObject(charDict, Newtonsoft.Json.Formatting.Indented);
+            string json = JsonConvert.SerializeObject(charDict, Formatting.Indented);
             File.AppendAllText("dict.json", json + Environment.NewLine);
         }
 

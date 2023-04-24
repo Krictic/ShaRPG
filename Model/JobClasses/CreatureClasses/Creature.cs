@@ -1,4 +1,4 @@
-﻿namespace ShaRPG.Gameplay.JobClasses.CreatureClasses
+﻿namespace ShaRPG.Model.JobClasses.CreatureClasses
 {
     internal class Creature : BaseJob
     {
@@ -9,13 +9,13 @@
         /// </summary>
         public Creature()
         {
-            JobName = "Creature";
-            HpBonus = 0;
-            StrengthBonus = 0;
-            VitalityBonus = 0;
-            DexterityBonus = 0;
-            AgilityBonus = 0;
-            IntelligenceBonus = 0;
+            SetJobName("Creature");
+            SetHpBonus(0);
+            SetStrengthBonus(0);
+            SetVitalityBonus(0);
+            SetDexterityBonus(0);
+            SetAgilityBonus(0);
+            SetIntelligenceBonus(0);
         }
     }
 }

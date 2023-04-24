@@ -1,5 +1,4 @@
-﻿using ShaRPG.Gameplay;
-using ShaRPG.GUI;
+﻿using ShaRPG.View.GUI;
 
 namespace ShaRPG
 {

@@ -2,24 +2,24 @@
 {
     internal class State
     {
-        protected Stack<State> states;
-        protected bool end = false;
+        protected Stack<State> states { get; set; }
+        protected bool end { get; set; } = false;
 
-        public Stack<State> StateSG
-        {
-            get { return states; }
-            set { states = value; }
-        }
+        public Stack<State> GetStateSG()
+        { return states; }
 
-        public bool End
-        {
-            get { return end; }
-            set { end = value; }
-        }
+        public void SetStateSG(Stack<State> value)
+        { states = value; }
 
-        public State(Stack<State> states) => StateSG = states;
+        public bool GetEnd()
+        { return end; }
 
-        public bool RequestEnd => End;
+        public void SetEnd(bool value)
+        { end = value; }
+
+        public State(Stack<State> states) => SetStateSG(states);
+
+        public bool RequestEnd => GetEnd();
 
         virtual public void Update()
         {

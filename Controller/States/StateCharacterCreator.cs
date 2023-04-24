@@ -2,7 +2,7 @@
 using ShaRPG.View.GUI;
 using System.Collections;
 
-namespace ShaRPG.States
+namespace ShaRPG.Controller.States
 {
     internal class StateCharacterCreator
         : State
@@ -27,8 +27,7 @@ namespace ShaRPG.States
                 case "1":
                 case "N":
                     Console.Clear();
-                    CharacterCreator creator = new();
-                    characterList = creator.CreateCharacter(characterList);
+                    characterList = CharacterCreator.CreateCharacter(characterList);
                     break;
                 case "2":
                 case "G":
@@ -43,20 +42,18 @@ namespace ShaRPG.States
         /// <summary>
         /// This randomly chooses a Job for the fast character generator.
         /// </summary>
-        private void randomJobChooser()
+        public void randomJobChooser()
         {
-            CharacterCreator creator = new();
             Random rnd = new Random();
             int variableIndex = rnd.Next(2);
             if (variableIndex == 1)
             {
-                characterList = creator.CreateFastCharacter("warrior", characterList);
+                characterList = CharacterCreator.CreateFastCharacter("warrior", characterList);
             }
             else
             {
-                characterList = creator.CreateFastCharacter("archer", characterList);
+                characterList = CharacterCreator.CreateFastCharacter("archer", characterList);
             }
-
         }
 
         override public void Update()

@@ -1,4 +1,4 @@
-﻿namespace ShaRPG.States
+﻿namespace ShaRPG.Controller.States
 {
     internal class State
     {

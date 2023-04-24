@@ -2,7 +2,7 @@
 using ShaRPG.View.GUI;
 using System.Collections;
 
-namespace ShaRPG.States
+namespace ShaRPG.Controller.States
 {
     internal class StateMainMenu
         : State
@@ -21,7 +21,7 @@ namespace ShaRPG.States
 
         public void ProcessInput(string input)
         {
-            switch(input)
+            switch (input)
             {
                 case "-1":
                     end = true;
@@ -92,7 +92,7 @@ namespace ShaRPG.States
             }
             Gui.MenuTitle("Main Menu");
             Gui.MenuOption(1, "(N)ew game");
-            Gui.MenuOption(2, "(L)oad Game");
+            Gui.MenuOption(2, "(L)oad InitGame");
             Gui.MenuOption(3, "(C)haracter Creator");
             Gui.MenuOption(4, "(S)elect Characters");
             if (debugMode)
@@ -118,10 +118,10 @@ namespace ShaRPG.States
         // Not gonna lie, im proud of this one. 
         private void CharacterBannerCreate()
         {
-            int len = Character.ToStringBanner(activeCharacter).Length;
+            int len = View.StringViewCharacter.ToStringBanner(activeCharacter).Length;
             string label = "   Active Character   ";
             int labelLen = label.Length;
-            int lenMinusLabelLen = (len - labelLen);
+            int lenMinusLabelLen = len - labelLen;
             for (int i = 0; i < lenMinusLabelLen; i++)
             {
                 if (i == lenMinusLabelLen / 2)
@@ -131,7 +131,7 @@ namespace ShaRPG.States
                 Console.Write("=");
             }
             Console.Write('\n');
-            Console.WriteLine(string.Format("{0}", Character.ToStringBanner(activeCharacter)));
+            Console.WriteLine(string.Format("{0}", View.StringViewCharacter.ToStringBanner(activeCharacter)));
             for (int i = 0; i < len; i++)
             {
                 Console.Write("=");
@@ -142,7 +142,7 @@ namespace ShaRPG.States
         public void StartNewGame()
         {
             // While the activeCharacter has a null value, the game cannot start.
-            if(activeCharacter == null) // Error
+            if (activeCharacter == null) // Error
             {
                 Gui.Alert("You havent selected a character, please select one at Main Menu -> (3) -> (1) or (2).");
             }
@@ -174,7 +174,7 @@ namespace ShaRPG.States
 
             if (activeCharacter != null)
             {
-                Gui.Announcement(string.Format($"The character {this.activeCharacter.GetName()} was selected!"));
+                Gui.Announcement(string.Format($"The character {activeCharacter.GetName()} was selected!"));
             }
 
             Console.ReadKey();

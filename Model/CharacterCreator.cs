@@ -12,7 +12,7 @@ namespace ShaRPG.Model
         }
         // Private fuctions
         // Todo: Fix unhandled format exception on this function.
-        public ArrayList CreateCharacter(ArrayList characterList)
+        public static ArrayList CreateCharacter(ArrayList characterList)
         {
 
             Gui.GetInput("Name");
@@ -44,7 +44,7 @@ namespace ShaRPG.Model
         /// once i allow for cusstom characters.
         /// </summary>
         /// <param name="jobType"></param>
-        public ArrayList CreateFastCharacter(string jobType, ArrayList characterList)
+        public static ArrayList CreateFastCharacter(string jobType, ArrayList characterList)
         {
             string name = "Chadicus";
             string biography = "Maximus";
@@ -75,7 +75,7 @@ namespace ShaRPG.Model
         /// Biography (or description) of the Character instance
         /// <param name="Job"></param>
         /// The Job (RPG classes) to be applied to the Character instance.
-        public ArrayList JobProcessing(string? name, string? biography, BaseJob Job, ArrayList characterList)
+        public static ArrayList JobProcessing(string? name, string? biography, BaseJob Job, ArrayList characterList)
         {
             Character character = CharacterNullCheck(name, biography);
             Job.ApplyBonuses(character);

@@ -1,4 +1,5 @@
-﻿using ShaRPG.View.GUI;
+﻿using ShaRPG.Controller;
+using ShaRPG.View.GUI;
 
 namespace ShaRPG
 {
@@ -11,7 +12,7 @@ namespace ShaRPG
                 throw new ArgumentNullException(nameof(args));
             }
 
-            Game game = new();
+            InitGame game = new();
             Gui.Title("Welcome to ShaRPG!");
             game.Run();
         }

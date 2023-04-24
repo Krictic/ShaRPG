@@ -1,16 +1,16 @@
 ﻿using ShaRPG.Model;
 using ShaRPG.View.GUI;
 
-namespace ShaRPG.States
+namespace ShaRPG.Controller.States
 {
-    internal class StateGame 
+    internal class StateGame
         : State
     {
 
         protected Character character;
 
-        public StateGame(Stack<State> stack, Character activeCharacter) 
-            : base(stack) 
+        public StateGame(Stack<State> stack, Character activeCharacter)
+            : base(stack)
         {
             character = activeCharacter;
         }
@@ -45,7 +45,7 @@ namespace ShaRPG.States
                 case "D":
                     Console.Clear();
                     Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.WriteLine(Character.ToStringDetailed(character));
+                    Console.WriteLine(View.StringViewCharacter.ToStringDetailed(character));
                     Console.ReadKey();
                     Console.Clear();
                     break;

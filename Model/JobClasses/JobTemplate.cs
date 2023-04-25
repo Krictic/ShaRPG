@@ -1,9 +1,9 @@
 ﻿using ShaRPG.Model;
 
-internal abstract class BaseJob
+internal abstract class JobTemplate
 {
-
     private string jobName { get; set; }
+    private string description { get; set; }
     private int hpBonus { get; set; }
     private int strengthBonus { get; set; }
     private int vitalityBonus { get; set; }
@@ -18,7 +18,17 @@ internal abstract class BaseJob
 
     public void SetJobName(string value)
     {
-        jobName = value;
+        this.jobName = value;
+    }
+
+    public string GetDescription()
+    {
+        return description;
+    }
+
+    public void SetDescription(string value) 
+    {
+        this.description = value; 
     }
 
     public int GetHpBonus()
@@ -28,7 +38,7 @@ internal abstract class BaseJob
 
     public void SetHpBonus(int value)
     {
-        hpBonus = value;
+        this.hpBonus = value;
     }
 
     public int GetStrengthBonus()
@@ -38,7 +48,7 @@ internal abstract class BaseJob
 
     public void SetStrengthBonus(int value)
     {
-        strengthBonus = value;
+        this.strengthBonus = value;
     }
 
     public int GetVitalityBonus()
@@ -48,7 +58,7 @@ internal abstract class BaseJob
 
     public void SetVitalityBonus(int value)
     {
-        vitalityBonus = value;
+        this.vitalityBonus = value;
     }
 
     public int GetDexterityBonus()
@@ -58,7 +68,7 @@ internal abstract class BaseJob
 
     public void SetDexterityBonus(int value)
     {
-        dexterityBonus = value;
+        this.dexterityBonus = value;
     }
 
     public int GetAgilityBonus()
@@ -68,7 +78,7 @@ internal abstract class BaseJob
 
     public void SetAgilityBonus(int value)
     {
-        agilityBonus = value;
+        this.agilityBonus = value;
     }
 
     public int GetIntelligenceBonus()
@@ -78,16 +88,16 @@ internal abstract class BaseJob
 
     public void SetIntelligenceBonus(int value)
     {
-        intelligenceBonus = value;
+        this.intelligenceBonus = value;
     }
 
     /// <summary>
     /// This applies the jobs bonuses to the character
     /// </summary>
     /// <param name="character">
-    /// Whatever Character type object (which includes both player and NPCs such as monsters) this will apply to
+    /// Whatever CharacterModel type object (which includes both player and NPCs such as monsters) this will apply to
     /// </param>
-    public virtual void ApplyBonuses(Character character)
+    public virtual void ApplyBonuses(CharacterModel character)
     {
         character.SetJob(GetJobName());
         character.SetHp(character.GetHp() + GetHpBonus());
@@ -97,6 +107,4 @@ internal abstract class BaseJob
         character.SetAgility(character.GetAgility() + GetAgilityBonus());
         character.SetIntelligence(character.GetIntelligence() + GetIntelligenceBonus());
     }
-
-
 }

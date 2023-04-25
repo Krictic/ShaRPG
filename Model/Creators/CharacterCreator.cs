@@ -3,15 +3,11 @@ using ShaRPG.Model.JobClasses.CharacterClassess;
 using ShaRPG.View.GUI;
 using System.Collections;
 
-namespace ShaRPG.Model
+namespace ShaRPG.Model.Creators
 {
     internal class CharacterCreator
     {
-        public void characterCreator()
-        {
-        }
-        // Private fuctions
-        // Todo: Fix unhandled format exception on this function.
+
         public static ArrayList CreateCharacter(ArrayList characterList)
         {
 
@@ -34,7 +30,7 @@ namespace ShaRPG.Model
                 characterList = JobProcessing(name, biography, archer, characterList);
 
             }
-            // I am not entirely sure if this will work out
+
             return characterList;
         }
 
@@ -63,7 +59,7 @@ namespace ShaRPG.Model
             }
 
             // God i hope this works.
-            return characterList; // This will go to StateCharacterCreator
+            return characterList; // This will go to ChracterCreatorController
         }
 
         /// <summary>
@@ -72,12 +68,12 @@ namespace ShaRPG.Model
         /// <param name="name"></param>
         /// Name of the character instance (may be null)
         /// <param name="biography"></param>
-        /// Biography (or description) of the Character instance
+        /// Biography (or description) of the CharacterModel instance
         /// <param name="Job"></param>
-        /// The Job (RPG classes) to be applied to the Character instance.
-        public static ArrayList JobProcessing(string? name, string? biography, BaseJob Job, ArrayList characterList)
+        /// The Job (RPG classes) to be applied to the CharacterModel instance.
+        public static ArrayList JobProcessing(string? name, string? biography, JobTemplate Job, ArrayList characterList)
         {
-            Character character = CharacterNullCheck(name, biography);
+            CharacterModel character = CharacterNullCheck(name, biography);
             Job.ApplyBonuses(character);
             CalculateCharStats(character);
 
@@ -89,7 +85,7 @@ namespace ShaRPG.Model
             return characterList; // This will be returned to CreateFastCharacter
         }
 
-        public static void CalculateCharStats(Character character)
+        public static void CalculateCharStats(CharacterModel character)
         {
             // Some shorthands for basic stats
             int st = character.GetStrength();
@@ -111,42 +107,42 @@ namespace ShaRPG.Model
             character.SetCriticalDamage(character.CalculateCritDamage(dex, iq, character.GetDamage()));
 
             // Calculate experience stats
-            character.SetStatPoints(Character.StatPointsCalculate(character.GetLevel()));
+            character.SetStatPoints(CharacterModel.StatPointsCalculate(character.GetLevel()));
             character.SetMaxExperience(character.CalculateExp(character.GetLevel()));
         }
 
         /// <summary>
-        /// This generates a unique id for each Character isntance, this will be useful later.
+        /// This generates a unique id for each CharacterModel isntance, this will be useful later.
         /// </summary>
         /// <param name="character"></param>
-        public static void charaID(Character character)
+        public static void charaID(CharacterModel character)
         {
             Guid uuid = new();
             character.SetID(uuid);
         }
 
-        public static void printAndStoreCharacter(Character character)
+        public static void printAndStoreCharacter(CharacterModel character)
         {
             Dictionary<object, object> charDict = new Dictionary<object, object>();
 
             foreach (var property in character.GetType().GetProperties())
             {
-                //Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
+                Console.WriteLine(string.Format("{0}: {1}", property.Name, property.GetValue(character, null)));
                 charDict.Add(property.Name, property.GetValue(character));
             }
 
-            Gui.Announcement($"Character {character.GetName()} created!");
+            Gui.Announcement($"CharacterModel {character.GetName()} created!");
             string json = JsonConvert.SerializeObject(charDict, Formatting.Indented);
             File.AppendAllText("dict.json", json + Environment.NewLine);
         }
 
         /// <summary>
-        /// This is a null-checking method which allows for null values to be passed as parameters for the Character class constructor.
+        /// This is a null-checking method which allows for null values to be passed as parameters for the CharacterModel class constructor.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="biography"></param>
         /// <returns></returns>
-        public static Character CharacterNullCheck(string? name, string? biography)
+        public static CharacterModel CharacterNullCheck(string? name, string? biography)
         {
 
             bool nameNull = false;
@@ -162,22 +158,22 @@ namespace ShaRPG.Model
                 biographyNull = true;
             }
 
-            // This is because Character´s parameters are optional
+            // This is because CharacterModel´s parameters are optional
             if (!nameNull && biographyNull)
             {
-                return new Character(name);
+                return new CharacterModel(name);
             }
             else if (nameNull && !biographyNull)
             {
-                return new Character(biography);
+                return new CharacterModel(biography);
             }
             else if (nameNull && biographyNull)
             {
-                return new Character();
+                return new CharacterModel();
             }
             else
             {
-                return new Character(name, biography);
+                return new CharacterModel(name, biography);
             }
         }
     }

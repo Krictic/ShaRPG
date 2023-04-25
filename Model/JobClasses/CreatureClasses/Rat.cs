@@ -1,6 +1,8 @@
-﻿namespace ShaRPG.Model.JobClasses.CreatureClasses
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace ShaRPG.Model.JobClasses.CreatureClasses
 {
-    internal class Rat : BaseJob
+    internal class Rat : JobTemplate
     {
         public Rat()
         {

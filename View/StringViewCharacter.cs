@@ -5,7 +5,10 @@ namespace ShaRPG.View
 {
     internal class StringViewCharacter
     {
-        public static void ToDict(Character character)
+
+
+
+        public static void ToDict(CharacterModel character)
         {
             Dictionary<string, object> characterDict =
                 new()
@@ -40,7 +43,7 @@ namespace ShaRPG.View
         }
 
         // Todo: Maybe I can rewrite to to return variables on demand?
-        public static string ToString(Character character)
+        public static string ToString(CharacterModel character)
         {
             string str =
                 $"Name:\t\t{character.GetName()}\n"
@@ -52,7 +55,7 @@ namespace ShaRPG.View
             return str;
         }
 
-        public static string ToStringBanner(Character character)
+        public static string ToStringBanner(CharacterModel character)
         {
             string str =
                 $"[ {character.GetName()} | Lv: {character.GetLevel()} | Job: {character.GetJob()} {Gui.ProgressBar(character.GetExperience(), character.GetMaxExperience(), 25)} ]";
@@ -60,7 +63,7 @@ namespace ShaRPG.View
             return str;
         }
 
-        public static string ToStringDetailed(Character character)
+        public static string ToStringDetailed(CharacterModel character)
         {
             string str =
                 $"Name:{character.GetName()}\n"

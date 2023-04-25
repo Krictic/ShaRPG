@@ -1,6 +1,6 @@
 ﻿namespace ShaRPG.Model.JobClasses.CreatureClasses
 {
-    internal class Creature : BaseJob
+    internal class Creature : JobTemplate
     {
         /// <summary>
         /// This is a beline set fo bonusess that will be applied to a generic monster
@@ -9,7 +9,7 @@
         /// </summary>
         public Creature()
         {
-            SetJobName("Creature");
+            SetJobName("CreatureModel");
             SetHpBonus(0);
             SetStrengthBonus(0);
             SetVitalityBonus(0);

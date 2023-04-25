@@ -1,15 +1,16 @@
-﻿using ShaRPG.Model.JobClasses.CreatureClasses;
+﻿using ShaRPG.Model.Creators;
+using ShaRPG.Model.JobClasses.CreatureClasses;
 
 namespace ShaRPG.Model
 {
     /// <summary>
     /// This is a class for creating new creature instances.
-    /// </summary>// Just a note on this class: I wanted a class specific for creature creation because the Creature
+    /// </summary>// Just a note on this class: I wanted a class specific for creature creation because the CreatureModel
     // class is a job class, and I wish to treat Monsters as a kind of NPC.
-    internal class Creature : Character
+    internal class CreatureModel : CharacterModel
     {
 
-        // Loot (Creature-specific variable)
+        // Loot (CreatureModel-specific variable)
         private double loot { get; set; }
         private double expGain { get; set; }
 
@@ -25,7 +26,7 @@ namespace ShaRPG.Model
         public void SetExpGain(double value)
         { expGain = value; }
 
-        public Creature() : base()
+        public CreatureModel() : base()
         {
 
         }
@@ -51,7 +52,7 @@ namespace ShaRPG.Model
             PoolDistribution(charLvl);
             ApplyCreatureBonuses(creatureType);
 
-            // Calculate derived stats based on the randomly generated stats (inherited from Character)
+            // Calculate derived stats based on the randomly generated stats (inherited from CharacterModel)
             CharacterCreator.CalculateCharStats(this);
 
             // This gives the creature instance randomly generated expGain and loot values
@@ -138,7 +139,7 @@ namespace ShaRPG.Model
             SetExpGain(randomExpSeed.Next(1, 10) * avg / 4);
         }
 
-        public static string ToStringDetailed(Creature creature)
+        public static string ToStringDetailed(CreatureModel creature)
         {
             return
                 $"========== Information ==========n\n"

@@ -1,6 +1,6 @@
 ﻿namespace ShaRPG.Model.JobClasses.CharacterClassess
 {
-    internal class Warrior : BaseJob
+    internal class Warrior : JobTemplate
     {
         public Warrior()
         {

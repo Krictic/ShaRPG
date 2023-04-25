@@ -1,4 +1,5 @@
 ﻿using ShaRPG.Model;
+using ShaRPG.Model.Creators;
 using ShaRPG.View.GUI;
 
 namespace ShaRPG.Controller.States
@@ -7,9 +8,9 @@ namespace ShaRPG.Controller.States
         : State
     {
 
-        protected Character character;
+        protected CharacterModel character;
 
-        public StateGame(Stack<State> stack, Character activeCharacter)
+        public StateGame(Stack<State> stack, CharacterModel activeCharacter)
             : base(stack)
         {
             character = activeCharacter;
@@ -17,11 +18,25 @@ namespace ShaRPG.Controller.States
 
         public static void GenerateMonster(int lvl)
         {
-            Creature randomMonster = new();
-            string creatureChoice = Gui.GetInputInt("What kind of creature you want");
+            Random rng = new Random();
+            CreatureModel randomMonster = new();
+            //string creatureChoice = Gui.GetInputInt("What kind of creature you want");
 
-            randomMonster.DistributeVariables(lvl, creatureChoice);
-            Console.WriteLine(Creature.ToStringDetailed(randomMonster));
+            string creatureJob;
+            int variableIndex = rng.Next(3);
+
+            switch (variableIndex)
+            {
+                case 0:
+                    creatureJob = "rat";
+                    break;
+                case 1:
+                    creatureJob = "goblin";
+                    break;
+            }
+
+            randomMonster.DistributeVariables(lvl, creatureJob);
+            Console.WriteLine(CreatureModel.ToStringDetailed(randomMonster));
         }
 
         public void ProcessInput(string input)
@@ -84,9 +99,9 @@ namespace ShaRPG.Controller.States
             Console.SetCursorPosition(0, Console.CursorTop);
             Gui.MenuTitle("GameState");
             Gui.MenuOption(1, "(C)haracter Stats");
-            Gui.MenuOption(2, "(D)etailed Character Stats");
+            Gui.MenuOption(2, "(D)etailed CharacterModel Stats");
             Gui.MenuOption(3, "(A)pply Stat Points");
-            Gui.MenuOption(4, "(G)enerate a Random Creature");
+            Gui.MenuOption(4, "(G)enerate a Random CreatureModel");
             Gui.MenuOption(-1, "(E)xit");
 
             string input = Gui.GetInputInt("").ToUpper().Trim();

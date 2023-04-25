@@ -3,7 +3,7 @@ using ShaRPG.View.GUI;
 
 namespace ShaRPG.Model
 {
-    internal class Character : StringViewCharacter
+    internal class CharacterModel : StringViewCharacter
     {
         // Private classes
         // Core properties
@@ -366,13 +366,13 @@ namespace ShaRPG.Model
             SetStatPoints(GetStatPoints() - spentPoints);
         }
 
-        public Character(string name = "Chadicus", string biography = "Maximus")
+        public CharacterModel(string name = "Chadicus", string biography = "Maximus")
         {
             SetName(name);
             SetBiography(biography);
         }
 
-        public void AddStats(Character character)
+        public void AddStats(CharacterModel character)
         {
             while (character.GetStatPoints() > 0)
             {
@@ -417,7 +417,7 @@ namespace ShaRPG.Model
                         break;
                     default:
                         valid = false;
-                        Gui.Alert("Choose a valid attirbute.");
+                        Gui.Alert("Choose a valid attribute.");
                         break;
                 }
                 if (valid)

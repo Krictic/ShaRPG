@@ -12,7 +12,7 @@ namespace ShaRPG
                 throw new ArgumentNullException(nameof(args));
             }
 
-            InitGame game = new();
+            InitGameController game = new();
             Gui.Title("Welcome to ShaRPG!");
             game.Run();
         }

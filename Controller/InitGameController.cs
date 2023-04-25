@@ -4,23 +4,17 @@ using System.Collections;
 
 namespace ShaRPG.Controller
 {
-    internal class InitGame : InitGameModel
+    internal class InitGameController
     {
-
-        InitGameModel gameModel = new InitGameModel();
+        Model.InitGameModel gameModel = new Model.InitGameModel();
         private void InitStates()
         {
-            //Stack<State> states = new Stack<State>();
-            //ArrayList characterList = new ArrayList();
             Stack<State> states = gameModel.GetStates();
             ArrayList characterList = gameModel.GetCharacterList();
+
             // Push the first state 
             states.Push(new StateMainMenu(states, characterList));
         }
-
-        //private Stack<State> states;
-        //private ArrayList characterList;
-
 
         // Private Functions
         private void InitVariables()
@@ -35,7 +29,7 @@ namespace ShaRPG.Controller
         }
 
         //Constructors and Destructors0
-        public InitGame()
+        public InitGameController()
         {
             InitVariables();
             InitCharacterList();

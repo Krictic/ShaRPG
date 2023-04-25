@@ -1,4 +1,4 @@
-﻿using ShaRPG.Model;
+﻿using ShaRPG.Model.Creators;
 using ShaRPG.View.GUI;
 using System.Collections;
 
@@ -22,7 +22,7 @@ namespace ShaRPG.Controller.States
                 case "-1":
                 case "E":
                     Console.Clear();
-                    end = true;
+                    this.end = true;
                     break;
                 case "1":
                 case "N":
@@ -59,11 +59,11 @@ namespace ShaRPG.Controller.States
         override public void Update()
         {
             Console.SetCursorPosition(0, Console.CursorTop);
-            Gui.MenuTitle("Character Creator");
-            Gui.MenuOption(1, "(N)ew Character");
-            Gui.MenuOption(2, "(G)enerate Fast Character");
-            Gui.MenuOption(3, "(E)dit Character (Not Yet Implemented)");
-            Gui.MenuOption(4, "(D)elete Character (Not Yet Implemented)");
+            Gui.MenuTitle("CharacterModel Creator");
+            Gui.MenuOption(1, "(N)ew CharacterModel");
+            Gui.MenuOption(2, "(G)enerate Fast CharacterModel");
+            Gui.MenuOption(3, "(E)dit CharacterModel (Not Yet Implemented)");
+            Gui.MenuOption(4, "(D)elete CharacterModel (Not Yet Implemented)");
             Gui.MenuOption(-1, "(E)xit");
 
             string input = Gui.GetInputInt("input").ToUpper().Trim();
